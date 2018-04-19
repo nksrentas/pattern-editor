@@ -23,7 +23,6 @@ public class PatternMain {
 	private final static String GANG_OF__FOUR_PATTERN = "Gang-of-Four Pattern";
 	private final static String SYSTEM_OF_PATTERNS_TEMPLATE = "System of Patterns Template";
 	private final static String TEXT_FONT = "Yu Gothic UI Semilight";
-	private final static String DEFAULT_PATTERN_TEMPLATE = MICRO_PATTERN_TEMPLATE;
 	private final static String DEFAULT_PATTERN_NAME = "Default name";
 	private static String selectedRadioButton = "";
 	protected static Shell shlPatternsEditor;
@@ -31,6 +30,7 @@ public class PatternMain {
 	private Button microPatternRadio;
 	private static MessageFactory messageFactory;
 	private Monitor primary;
+	private Display display;
 
 	/**
 	 * Launch the application.
@@ -50,17 +50,9 @@ public class PatternMain {
 	 * Open the window.
 	 */
 	public void open() {
-		Display display = Display.getDefault();
+		display = Display.getDefault();
 		createContents();
-		
-		// Center main window
-		primary = display.getPrimaryMonitor();
-		Rectangle bounds = primary.getBounds();
-		Rectangle rect = shlPatternsEditor.getBounds();
-		int x = bounds.x + (bounds.width - rect.width) / 2;
-		int y = bounds.y + (bounds.height - rect.height) / 2;
-		shlPatternsEditor.setLocation(x, y);
-			    
+		setWindowsPosition();
 		shlPatternsEditor.open();
 		shlPatternsEditor.layout();
 		while (!shlPatternsEditor.isDisposed()) {
@@ -81,7 +73,7 @@ public class PatternMain {
 		shlPatternsEditor.setSize(392, 374);
 		shlPatternsEditor.setText("Patterns Editor");
 		shlPatternsEditor.setLayout(null);
-		
+
 		CLabel topHeader = new CLabel(shlPatternsEditor, SWT.CENTER);
 		topHeader.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
 		topHeader.setFont(SWTResourceManager.getFont(TEXT_FONT, 13, SWT.NORMAL));
@@ -111,7 +103,6 @@ public class PatternMain {
 			public void widgetSelected(SelectionEvent event) {
 				Button button = ((Button) event.widget);
 				if (button.getSelection()) {
-					System.out.println(button.getText());
 					selectedRadioButton = button.getText();
 				}
 			};
@@ -146,7 +137,7 @@ public class PatternMain {
 		systemPatternRadio.setBounds(183, 31, 181, 22);
 		systemPatternRadio.setText(SYSTEM_OF_PATTERNS_TEMPLATE);
 		systemPatternRadio.addSelectionListener(selectionListener);
-		
+
 		Button createPatternButton = new Button(shlPatternsEditor, SWT.FLAT | SWT.CENTER);
 		createPatternButton.setFont(SWTResourceManager.getFont(TEXT_FONT, 12, SWT.NORMAL));
 		createPatternButton.addSelectionListener(new SelectionAdapter() {
@@ -155,6 +146,27 @@ public class PatternMain {
 				if (checkEmptyTextField() | checkEmptyRadioButton()) {
 					messageFactory = new MessageInfoDialog();
 					messageFactory.renderDialogWindow();
+				}
+				
+				switch (selectedRadioButton) {
+				case MICRO_PATTERN_TEMPLATE:
+					new MicroPatternGUI(display);
+					break;
+				case INDUCTIVE_MINI_PATTERN:
+					new InductiveMiniGUI(display);
+					break;
+				case DEDUCTIVE_MINI_PATTERN:
+					new DeductiveMiniGUI(display);
+					break;
+				case GANG_OF__FOUR_PATTERN:
+					new GangFourGUI(display);
+					break;
+				case SYSTEM_OF_PATTERNS_TEMPLATE:
+					new SystemOfPatternsGUI(display);
+					break;
+				default:
+					new MicroPatternGUI(display);
+					break;
 				}
 			}
 		});
@@ -169,7 +181,7 @@ public class PatternMain {
 		}
 		return false;
 	}
-	
+
 	private boolean checkEmptyRadioButton() {
 		if (selectedRadioButton.isEmpty()) {
 			setDefaultRadioButton();
@@ -177,12 +189,21 @@ public class PatternMain {
 		}
 		return false;
 	}
-	
+
 	private void setDefaultRadioButton() {
 		microPatternRadio.setSelection(true);
 	}
-	
+
 	private void setDefaultTextField() {
 		patternLanguageNameTextField.setText(DEFAULT_PATTERN_NAME);
+	}
+
+	private void setWindowsPosition() {
+		primary = display.getPrimaryMonitor();
+		Rectangle bounds = primary.getBounds();
+		Rectangle rect = shlPatternsEditor.getBounds();
+		int x = bounds.x + (bounds.width - rect.width) / 2;
+		int y = bounds.y + (bounds.height - rect.height) / 2;
+		shlPatternsEditor.setLocation(x, y);
 	}
 }
