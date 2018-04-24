@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Arrays;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,6 +17,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class GangFourGUI extends Shell {
 	private Monitor primary;
 	private Display display;
+	private String[] data = new String[15];
 	/**
 	 * Create the shell.
 	 * 
@@ -29,6 +32,8 @@ public class GangFourGUI extends Shell {
 		this.display = display;
 		Menu menu = new Menu(this, SWT.BAR);
 		setMenuBar(menu);
+		
+		Arrays.fill(data, "");
 		
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
 		mntmFile.setText("File");
@@ -102,7 +107,7 @@ public class GangFourGUI extends Shell {
 		
 		applicabilityButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		applicabilityButton.setBounds(10, 196, 154, 25);
-		applicabilityButton.setText("Applicability\r\n");
+		applicabilityButton.setText("Applicability");
 		listen(applicabilityButton);
 		
 		structureButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
@@ -180,9 +185,101 @@ public class GangFourGUI extends Shell {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(button.getText());
-				new TextWindowGUI(display);
+				TextWindowGUI textWindowGUI = new TextWindowGUI(display, parseData(button.getText()));
+				saveData(button.getText(), textWindowGUI);
 			}
 		});
+	}
+	
+	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
+		switch (buttonText) {
+		case "Name":
+			data[0] = textWindowGUI.getTextInput();
+			break;
+		case "Template":
+			data[1] = textWindowGUI.getTextInput();
+			break;
+		case "Classification":
+			data[2] = textWindowGUI.getTextInput();
+			break;
+		case "Intent":
+			data[3] = textWindowGUI.getTextInput();
+			break;
+		case "Also Known As":
+			data[4] = textWindowGUI.getTextInput();
+			break;
+		case "Motivation":
+			data[5] = textWindowGUI.getTextInput();
+			break;
+		case "Applicability":
+			data[6] = textWindowGUI.getTextInput();
+			break;
+		case "Structure":
+			data[7] = textWindowGUI.getTextInput();
+			break;
+		case "Participants":
+			data[8] = textWindowGUI.getTextInput();
+			break;
+		case "Collaborations":
+			data[9] = textWindowGUI.getTextInput();
+			break;
+		case "Consequences":
+			data[10] = textWindowGUI.getTextInput();
+			break;
+		case "Implementation":
+			data[11] = textWindowGUI.getTextInput();
+			break;
+		case "Sample Code":
+			data[12] = textWindowGUI.getTextInput();
+			break;
+		case "Known Uses":
+			data[13] = textWindowGUI.getTextInput();
+			break;
+		case "Related Pattern":
+			data[14] = textWindowGUI.getTextInput();
+			break;
+		default:
+			System.out.println("Input problem");
+			break;
+		}		
+	}
+	
+	private String parseData(String buttonText) {
+		switch (buttonText) {
+		case "Name":
+			return data[0];
+		case "Template":
+			return data[1];
+		case "Classification":
+			return data[2];
+		case "Intent":
+			return data[3];
+		case "Also Known As":
+			return data[4];
+		case "Motivation":
+			return data[5];
+		case "Applicability":
+			return data[6];
+		case "Structure":
+			return data[7];
+		case "Participants":
+			return data[8];
+		case "Collaborations":
+			return data[9];
+		case "Consequences":
+			return data[10];
+		case "Implementation":
+			return data[11];
+		case "Sample Code":
+			return data[12];
+		case "Known Uses":
+			return data[13];
+		case "Related Pattern":
+			return data[14];
+		default:
+			System.out.println("Input problem");
+			break;
+		}	
+		return "Error";
 	}
 }

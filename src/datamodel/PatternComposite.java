@@ -49,10 +49,12 @@ public class PatternComposite extends PatternComponent {
 	}
 	
 	public void print() {
+		System.out.println("===================>");
 		for(int i = 0; i < components.size(); i++) {
 			System.out.println(components.get(i).getTitle());
 			System.out.println(components.get(i).getContents());
 		}
+		System.out.println("===================>");
 	}
 
 	@Override

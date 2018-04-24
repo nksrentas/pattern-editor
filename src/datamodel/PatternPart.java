@@ -15,9 +15,7 @@ public class PatternPart extends PatternComponent{
 
 	@Override
 	public void setContents(String contents) {
-		System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" + contents);
 		this.contents = contents;
-		System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" + this.contents);
 	}
 
 	@Override

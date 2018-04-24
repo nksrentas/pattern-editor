@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Arrays;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,6 +17,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class DeductiveMiniGUI extends Shell {
 	private Monitor primary;
 	private Display display;
+	private String[] data = new String[6];
 	/**
 	 * Create the shell.
 	 * 
@@ -29,6 +32,8 @@ public class DeductiveMiniGUI extends Shell {
 		this.display = display;
 		Menu menu = new Menu(this, SWT.BAR);
 		setMenuBar(menu);
+		
+		Arrays.fill(data, "");
 		
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
 		mntmFile.setText("File");
@@ -118,9 +123,56 @@ public class DeductiveMiniGUI extends Shell {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(button.getText());
-				new TextWindowGUI(display);
+				TextWindowGUI textWindowGUI = new TextWindowGUI(display, parseData(button.getText()));
+				saveData(button.getText(), textWindowGUI);
 			}
 		});
+	}
+	
+	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
+		switch (buttonText) {
+		case "Name":
+			data[0] = textWindowGUI.getTextInput();
+			break;
+		case "Template":
+			data[1] = textWindowGUI.getTextInput();
+			break;
+		case "Problem":
+			data[2] = textWindowGUI.getTextInput();
+			break;
+		case "Solution":
+			data[3] = textWindowGUI.getTextInput();
+			break;
+		case "Benefit":
+			data[4] = textWindowGUI.getTextInput();
+			break;
+		case "Consequences":
+			data[5] = textWindowGUI.getTextInput();
+			break;
+		default:
+			System.out.println("Input problem");
+			break;
+		}		
+	}
+	
+	private String parseData(String buttonText) {
+		switch (buttonText) {
+		case "Name":
+			return data[0];
+		case "Template":
+			return data[1];
+		case "Problem":
+			return data[2];
+		case "Solution":
+			return data[3];
+		case "Benefit":
+			return data[4];
+		case "Consequences":
+			return data[5];
+		default:
+			System.out.println("Input problem");
+			break;
+		}	
+		return "Error";
 	}
 }

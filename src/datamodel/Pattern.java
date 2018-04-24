@@ -1,15 +1,17 @@
 package datamodel;
 
 public class Pattern extends PatternComposite{
-	private MicroPattern microPattern;
-	private InductiveMiniPattern inductiveMiniPattern;
-	private DeductiveMiniPattern deductiveMiniPattern;
-	private GangOfFourPattern gangOfFourPattern;
-	private SystemOfPattern systemOfPattern;
+	private static MicroPattern microPattern;
+	private static InductiveMiniPattern inductiveMiniPattern;
+	private static DeductiveMiniPattern deductiveMiniPattern;
+	private static GangOfFourPattern gangOfFourPattern;
+	private static SystemOfPattern systemOfPattern;
 
 	public Pattern clone() {
 		return null;
 	}
+	
+	//public static void main(String args[]) {
 	
 	public void init() {
 		/*PatternComponent leaf1 = new PatternPart("ena");
@@ -47,6 +49,7 @@ public class Pattern extends PatternComposite{
 		
 		microPattern = (MicroPattern) patternTestCache.get("Micro");
 		//((PatternComposite) microPattern.getContainer()).print();
+		
 		
 		//MicroPattern objTwo = (MicroPattern) patternTestCache.get("Micro");
 		/*System.out.println(objOne.leaf1.getTitle());

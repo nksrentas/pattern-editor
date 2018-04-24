@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Arrays;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,11 +17,9 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class InductiveMiniGUI extends Shell {
 	private Monitor primary;
 	private Display display;
-	/**
-	 * Create the shell.
-	 * 
-	 * @param display
-	 */
+	private String test;
+	private String[] data = new String[5];
+	
 	public InductiveMiniGUI(Display display) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(InductiveMiniGUI.class, "/gui/icons8-code-fork-50.png"));
@@ -29,6 +29,8 @@ public class InductiveMiniGUI extends Shell {
 		this.display = display;
 		Menu menu = new Menu(this, SWT.BAR);
 		setMenuBar(menu);
+		
+		Arrays.fill(data, "");
 		
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
 		mntmFile.setText("File");
@@ -111,9 +113,51 @@ public class InductiveMiniGUI extends Shell {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(button.getText());
-				new TextWindowGUI(display);
+				TextWindowGUI textWindowGUI = new TextWindowGUI(display, parseData(button.getText()));
+				saveData(button.getText(), textWindowGUI);
 			}
 		});
+	}
+	
+	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
+		switch (buttonText) {
+		case "Name":
+			data[0] = textWindowGUI.getTextInput();
+			break;
+		case "Template":
+			data[1] = textWindowGUI.getTextInput();
+			break;
+		case "Context":
+			data[2] = textWindowGUI.getTextInput();
+			break;
+		case "Forces":
+			data[3] = textWindowGUI.getTextInput();
+			break;
+		case "Solution":
+			data[4] = textWindowGUI.getTextInput();
+			break;
+		default:
+			System.out.println("Input problem");
+			break;
+		}			
+	}
+	
+	private String parseData(String buttonText) {
+		switch (buttonText) {
+		case "Name":
+			return data[0];
+		case "Template":
+			return data[1];
+		case "Context":
+			return data[2];
+		case "Forces":
+			return data[3];
+		case "Solution":
+			return data[4];
+		default:
+			System.out.println("Input problem");
+			break;
+		}	
+		return "Error";
 	}
 }

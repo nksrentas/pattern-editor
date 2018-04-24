@@ -45,4 +45,20 @@ public class MicroPattern extends PatternTest {
 	public void setContainer(PatternComponent container) {
 		this.container = container;
 	}
+	
+	public PatternComponent getLeaf1() {
+		return leaf1;
+	}
+
+	public PatternComponent getLeaf2() {
+		return leaf2;
+	}
+
+	public PatternComponent getLeaf3() {
+		return leaf3;
+	}
+
+	public PatternComponent getLeaf4() {
+		return leaf4;
+	}
 }

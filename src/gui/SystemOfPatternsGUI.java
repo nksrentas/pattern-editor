@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Arrays;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,7 +17,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 public class SystemOfPatternsGUI extends Shell {
 	private Monitor primary;
 	private Display display;
-
+	private String[] data = new String[13];
 	/**
 	 * Create the shell.
 	 * 
@@ -30,6 +32,8 @@ public class SystemOfPatternsGUI extends Shell {
 		this.display = display;
 		Menu menu = new Menu(this, SWT.BAR);
 		setMenuBar(menu);
+		
+		Arrays.fill(data, "");
 		
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
 		mntmFile.setText("File");
@@ -113,7 +117,7 @@ public class SystemOfPatternsGUI extends Shell {
 		listen(dynamicButton);
 		
 		exampleResolvedButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
-		exampleResolvedButton.setText("Example Resolved\r\n");
+		exampleResolvedButton.setText("Example Resolved");
 		exampleResolvedButton.setBounds(10, 320, 154, 25);
 		listen(exampleResolvedButton);
 		
@@ -163,9 +167,91 @@ public class SystemOfPatternsGUI extends Shell {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				System.out.println(button.getText());
-				new TextWindowGUI(display);
+				TextWindowGUI textWindowGUI = new TextWindowGUI(display, parseData(button.getText()));
+				saveData(button.getText(), textWindowGUI);
 			}
 		});
+	}
+	
+	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
+		switch (buttonText) {
+		case "Name":
+			data[0] = textWindowGUI.getTextInput();
+			break;
+		case "Template":
+			data[1] = textWindowGUI.getTextInput();
+			break;
+		case "Also Known As":
+			data[2] = textWindowGUI.getTextInput();
+			break;
+		case "Example":
+			data[3] = textWindowGUI.getTextInput();
+			break;
+		case "Context":
+			data[4] = textWindowGUI.getTextInput();
+			break;
+		case "Problem":
+			data[5] = textWindowGUI.getTextInput();
+			break;
+		case "Solution":
+			data[6] = textWindowGUI.getTextInput();
+			break;
+		case "Structure":
+			data[7] = textWindowGUI.getTextInput();
+			break;
+		case "Dynamic":
+			data[8] = textWindowGUI.getTextInput();
+			break;
+		case "Implementation":
+			data[9] = textWindowGUI.getTextInput();
+			break;
+		case "Example Resolved":
+			data[10] = textWindowGUI.getTextInput();
+			break;
+		case "Variants":
+			data[11] = textWindowGUI.getTextInput();
+			break;
+		case "Known Uses":
+			data[12] = textWindowGUI.getTextInput();
+			break;
+		default:
+			System.out.println("Input problem");
+			break;
+		}
+	}
+	
+	private String parseData(String buttonText) {
+		switch (buttonText) {
+		case "Name":
+			return data[0];
+		case "Template":
+			return data[1];
+		case "Also Known As":
+			return data[2];
+		case "Example":
+			return data[3];
+		case "Context":
+			return data[4];
+		case "Problem":
+			return data[5];
+		case "Solution":
+			return data[6];
+		case "Structure":
+			return data[7];
+		case "Dynamic":
+			return data[8];
+		case "Implementation":
+			return data[9];
+		case "Example Resolved":
+			return data[10];
+		case "Variants":
+			return data[11];
+		case "Known Uses":
+			return data[12];
+		default:
+			System.out.println("Input problem");
+			break;
+		}	
+		return "Error";
 	}
 }
