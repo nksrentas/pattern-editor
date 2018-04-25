@@ -32,11 +32,6 @@ public class PatternMain {
 	private Monitor primary;
 	private Display display;
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		try {
 			PatternMain window = new PatternMain();
@@ -46,9 +41,6 @@ public class PatternMain {
 		}
 	}
 
-	/**
-	 * Open the window.
-	 */
 	public void open() {
 		display = Display.getDefault();
 		createContents();
@@ -62,9 +54,6 @@ public class PatternMain {
 		}
 	}
 
-	/**
-	 * Create contents of the window.
-	 */
 	protected void createContents() {
 		shlPatternsEditor = new Shell(SWT.DIALOG_TRIM);
 		shlPatternsEditor.setImage(SWTResourceManager.getImage(PatternMain.class, "/gui/icons8-code-fork-50.png"));

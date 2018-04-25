@@ -20,6 +20,7 @@ import datamodel.PatternComponent;
 import datamodel.PatternComposite;
 import save.file.DataAddTabs;
 import save.file.DataFile;
+import save.file.DataLatextSyntax;
 import save.file.DataTxt;
 
 public class MicroPatternGUI extends Shell {
@@ -92,7 +93,7 @@ public class MicroPatternGUI extends Shell {
 				//((PatternComposite) pattern.getMicroPattern().getContainer()).print();
 			
 				// Print sto arxeio TXT
-				DataFile dataFile = new DataTxt();
+				/*DataFile dataFile = new DataTxt();
 				dataFile.initStream();
 				dataFile = new DataAddTabs(dataFile);
 				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer()).getComponents();
@@ -100,11 +101,20 @@ public class MicroPatternGUI extends Shell {
 					dataFile.writeFile(kappa.get(i).getTitle());
 					dataFile.writeFile(kappa.get(i).getContents());
 				}
-				((DataAddTabs) dataFile).closeFile();
+				((DataAddTabs) dataFile).closeFile();*/
 				
 				
 				// Print sto arxeio LATEX
-				
+				DataFile dataFileLatex = new DataTxt();
+				dataFileLatex.initStream();
+				dataFileLatex = new DataLatextSyntax(dataFileLatex);
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer()).getComponents();
+				((DataLatextSyntax) dataFileLatex).writeSectionStart();
+				for (int i = 0; i < kappa.size(); i++) {
+					dataFileLatex.writeFile(kappa.get(i).getTitle());
+					dataFileLatex.writeFile(kappa.get(i).getContents());
+				}
+				((DataLatextSyntax) dataFileLatex).closeFile();
 				
 			}
 		});
