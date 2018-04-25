@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
@@ -14,26 +15,18 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import datamodel.MicroPattern;
 import datamodel.Pattern;
-import datamodel.PatternComposite;
-import datamodel.PatternTestCache;
 import datamodel.PatternComponent;
-import datamodel.*;
-
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Label;
+import datamodel.PatternComposite;
+import save.file.DataAddTabs;
+import save.file.DataFile;
+import save.file.DataTxt;
 
 public class MicroPatternGUI extends Shell {
 	private Monitor primary;
 	private Display display;
 	private String[] data = new String[4];
 	
-	/**
-	 * Create the shell.
-	 * 
-	 * @param display
-	 */
 	public MicroPatternGUI(Display display) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(MicroPatternGUI.class, "/gui/icons8-code-fork-50.png"));
@@ -88,11 +81,7 @@ public class MicroPatternGUI extends Shell {
 		saveButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				for(int i =0 ; i < data.length; i++) {
-					System.out.println(data[i]);
-				}
-			
-				// me init
+				// Save to kathe leaf
 				Pattern pattern = new Pattern();
 				pattern.init();
 				pattern.getMicroPattern().getLeaf1().setContents(data[0]);
@@ -100,7 +89,22 @@ public class MicroPatternGUI extends Shell {
 				pattern.getMicroPattern().getLeaf3().setContents(data[2]);
 				pattern.getMicroPattern().getLeaf4().setContents(data[3]);
 				
-				((PatternComposite) pattern.getMicroPattern().getContainer()).print();
+				//((PatternComposite) pattern.getMicroPattern().getContainer()).print();
+			
+				// Print sto arxeio TXT
+				DataFile dataFile = new DataTxt();
+				dataFile.initStream();
+				dataFile = new DataAddTabs(dataFile);
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer()).getComponents();
+				for (int i = 0; i < kappa.size(); i++) {
+					dataFile.writeFile(kappa.get(i).getTitle());
+					dataFile.writeFile(kappa.get(i).getContents());
+				}
+				((DataAddTabs) dataFile).closeFile();
+				
+				
+				// Print sto arxeio LATEX
+				
 				
 			}
 		});
@@ -118,9 +122,6 @@ public class MicroPatternGUI extends Shell {
 		}
 	}
 
-	/**
-	 * Create contents of the shell.
-	 */
 	protected void createContents() {
 		setText("Create your pattern language");
 		setSize(249, 335);

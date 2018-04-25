@@ -15,6 +15,7 @@ public class PatternComposite extends PatternComponent {
 
 	public void saveContents() {
 		// TODO phase 2
+		System.out.print("eimai sto saveeContents");
 	}
 
 	public void add(PatternComponent patternComponent) {
@@ -59,5 +60,9 @@ public class PatternComposite extends PatternComponent {
 
 	@Override
 	public void setContents(String contents) {
+	}
+
+	public ArrayList<PatternComponent> getComponents() {
+		return components;
 	}
 }
