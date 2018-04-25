@@ -139,22 +139,22 @@ public class PatternMain {
 				
 				switch (selectedRadioButton) {
 				case MICRO_PATTERN_TEMPLATE:
-					new MicroPatternGUI(display);
+					new MicroPatternGUI(display, patternLanguageNameTextField.getText());
 					break;
 				case INDUCTIVE_MINI_PATTERN:
-					new InductiveMiniGUI(display);
+					new InductiveMiniGUI(display, patternLanguageNameTextField.getText());
 					break;
 				case DEDUCTIVE_MINI_PATTERN:
-					new DeductiveMiniGUI(display);
+					new DeductiveMiniGUI(display, patternLanguageNameTextField.getText());
 					break;
 				case GANG_OF__FOUR_PATTERN:
-					new GangFourGUI(display);
+					new GangFourGUI(display, patternLanguageNameTextField.getText());
 					break;
 				case SYSTEM_OF_PATTERNS_TEMPLATE:
-					new SystemOfPatternsGUI(display);
+					new SystemOfPatternsGUI(display, patternLanguageNameTextField.getText());
 					break;
 				default:
-					new MicroPatternGUI(display);
+					new MicroPatternGUI(display, patternLanguageNameTextField.getText());
 					break;
 				}
 			}

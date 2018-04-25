@@ -28,7 +28,7 @@ public class MicroPatternGUI extends Shell {
 	private Display display;
 	private String[] data = new String[4];
 	
-	public MicroPatternGUI(Display display) {
+	public MicroPatternGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(MicroPatternGUI.class, "/gui/icons8-code-fork-50.png"));
 		createContents();

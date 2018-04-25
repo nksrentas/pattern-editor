@@ -20,7 +20,7 @@ public class InductiveMiniGUI extends Shell {
 	private String test;
 	private String[] data = new String[5];
 	
-	public InductiveMiniGUI(Display display) {
+	public InductiveMiniGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(InductiveMiniGUI.class, "/gui/icons8-code-fork-50.png"));
 		createContents();

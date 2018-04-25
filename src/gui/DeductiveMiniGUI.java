@@ -22,8 +22,9 @@ public class DeductiveMiniGUI extends Shell {
 	 * Create the shell.
 	 * 
 	 * @param display
+	 * @param string 
 	 */
-	public DeductiveMiniGUI(Display display) {
+	public DeductiveMiniGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(DeductiveMiniGUI.class, "/gui/icons8-code-fork-50.png"));
 		createContents();

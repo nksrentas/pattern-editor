@@ -22,8 +22,9 @@ public class SystemOfPatternsGUI extends Shell {
 	 * Create the shell.
 	 * 
 	 * @param display
+	 * @param string 
 	 */
-	public SystemOfPatternsGUI(Display display) {
+	public SystemOfPatternsGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(SystemOfPatternsGUI.class, "/gui/icons8-code-fork-50.png"));
 		createContents();
