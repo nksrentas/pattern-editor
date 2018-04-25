@@ -22,4 +22,8 @@ public class DataAddTabs extends DataDecorator{
 	public void closeFile() {
 		dataFile.printWriter.close();
 	}
+	
+	public void saveName(String patternName) {
+		dataFile.writeFile(patternName);
+	}
 }

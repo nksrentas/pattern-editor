@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
@@ -14,10 +15,19 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import datamodel.Pattern;
+import datamodel.PatternComponent;
+import datamodel.PatternComposite;
+import save.file.DataAddTabs;
+import save.file.DataFile;
+import save.file.DataLatextSyntax;
+import save.file.DataTxt;
+
 public class SystemOfPatternsGUI extends Shell {
 	private Monitor primary;
 	private Display display;
 	private String[] data = new String[13];
+	private MessageFactory messageFactory;
 	/**
 	 * Create the shell.
 	 * 
@@ -126,6 +136,97 @@ public class SystemOfPatternsGUI extends Shell {
 		variantsButton.setText("Variants");
 		variantsButton.setBounds(10, 351, 154, 25);
 		listen(variantsButton);
+		
+		Button button = new Button(this, SWT.NONE);
+		button.setText("Save TXT");
+		button.setSelection(true);
+		button.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		button.setBounds(197, 320, 154, 25);
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf
+				Pattern pattern = new Pattern();
+				pattern.init();
+				pattern.getSystemOfPattern().getLeaf1().setContents(data[0]);
+				pattern.getSystemOfPattern().getLeaf2().setContents(data[1]);
+				pattern.getSystemOfPattern().getLeaf3().setContents(data[2]);
+				pattern.getSystemOfPattern().getLeaf4().setContents(data[3]);
+				pattern.getSystemOfPattern().getLeaf5().setContents(data[4]);
+				pattern.getSystemOfPattern().getLeaf6().setContents(data[5]);
+				pattern.getSystemOfPattern().getLeaf7().setContents(data[6]);
+				pattern.getSystemOfPattern().getLeaf8().setContents(data[7]);
+				pattern.getSystemOfPattern().getLeaf9().setContents(data[8]);
+				pattern.getSystemOfPattern().getLeaf10().setContents(data[9]);
+				pattern.getSystemOfPattern().getLeaf11().setContents(data[10]);
+				pattern.getSystemOfPattern().getLeaf12().setContents(data[11]);
+				pattern.getSystemOfPattern().getLeaf13().setContents(data[12]);
+
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getSystemOfPattern().getContainer())
+						.getComponents();
+
+				if (hasAllEmptyContents(kappa)) {
+					messageFactory = new MessageErrorDialog();
+					messageFactory.renderDialogWindow();
+				} else {
+					// Print sto arxeio TXT
+					DataFile dataFile = new DataTxt();
+					dataFile.initStream(patternLanguageName, "txt");
+					dataFile = new DataAddTabs(dataFile);
+
+					for (int i = 0; i < kappa.size(); i++) {
+						dataFile.writeFile(kappa.get(i).getTitle());
+						dataFile.writeFile(kappa.get(i).getContents());
+					}
+					((DataAddTabs) dataFile).closeFile();
+				}
+			}
+		});
+		
+		Button button_1 = new Button(this, SWT.NONE);
+		button_1.setText("Save Latex");
+		button_1.setSelection(true);
+		button_1.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		button_1.setBounds(197, 351, 154, 25);
+		button_1.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf
+				Pattern pattern = new Pattern();
+				pattern.init();
+				pattern.getSystemOfPattern().getLeaf1().setContents(data[0]);
+				pattern.getSystemOfPattern().getLeaf2().setContents(data[1]);
+				pattern.getSystemOfPattern().getLeaf3().setContents(data[2]);
+				pattern.getSystemOfPattern().getLeaf4().setContents(data[3]);
+				pattern.getSystemOfPattern().getLeaf5().setContents(data[4]);
+				pattern.getSystemOfPattern().getLeaf6().setContents(data[5]);
+				pattern.getSystemOfPattern().getLeaf7().setContents(data[6]);
+				pattern.getSystemOfPattern().getLeaf8().setContents(data[7]);
+				pattern.getSystemOfPattern().getLeaf9().setContents(data[8]);
+				pattern.getSystemOfPattern().getLeaf10().setContents(data[9]);
+				pattern.getSystemOfPattern().getLeaf11().setContents(data[10]);
+				pattern.getSystemOfPattern().getLeaf12().setContents(data[11]);
+				pattern.getSystemOfPattern().getLeaf13().setContents(data[12]);
+
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getSystemOfPattern().getContainer())
+						.getComponents();
+				if (hasAllEmptyContents(kappa)) {
+					messageFactory = new MessageErrorDialog();
+					messageFactory.renderDialogWindow();
+				} else {
+					// Print sto arxeio LATEX
+					DataFile dataFileLatex = new DataTxt();
+					dataFileLatex.initStream(patternLanguageName, "tex");
+					dataFileLatex = new DataLatextSyntax(dataFileLatex, patternLanguageName);
+
+					for (int i = 1; i < kappa.size(); i++) {
+						dataFileLatex.writeFile(kappa.get(i).getTitle());
+						dataFileLatex.writeFile(kappa.get(i).getContents());
+					}
+					((DataLatextSyntax) dataFileLatex).closeFile();
+				}
+			}
+		});
 		
 		try {
 			open();
@@ -254,5 +355,20 @@ public class SystemOfPatternsGUI extends Shell {
 			break;
 		}	
 		return "Error";
+	}
+	
+	private boolean hasAllEmptyContents(ArrayList<PatternComponent> list) {
+		int counter = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getContents().isEmpty()) {
+				counter++;
+			}
+		}
+
+		if (counter == list.size() - 1) {
+			return true;
+		}
+
+		return false;
 	}
 }

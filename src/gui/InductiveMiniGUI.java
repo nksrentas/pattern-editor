@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
@@ -14,10 +15,19 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import datamodel.Pattern;
+import datamodel.PatternComponent;
+import datamodel.PatternComposite;
+import save.file.DataAddTabs;
+import save.file.DataFile;
+import save.file.DataLatextSyntax;
+import save.file.DataTxt;
+
 public class InductiveMiniGUI extends Shell {
 	private Monitor primary;
 	private Display display;
 	private String test;
+	private MessageFactory messageFactory;
 	private String[] data = new String[5];
 	
 	public InductiveMiniGUI(Display display, String patternLanguageName) {
@@ -72,6 +82,82 @@ public class InductiveMiniGUI extends Shell {
 		forcesButton.setBounds(10, 103, 154, 25);
 		forcesButton.setText("Forces");
 		listen(forcesButton);
+		
+		Button button = new Button(this, SWT.NONE);
+		button.setText("Save TXT");
+		button.setSelection(true);
+		button.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		button.setBounds(10, 249, 154, 25);
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf
+				Pattern pattern = new Pattern();
+				pattern.init();
+				pattern.getInductiveMiniPattern().getLeaf1().setContents(data[0]);
+				pattern.getInductiveMiniPattern().getLeaf2().setContents(data[1]);
+				pattern.getInductiveMiniPattern().getLeaf3().setContents(data[2]);
+				pattern.getInductiveMiniPattern().getLeaf4().setContents(data[3]);
+				pattern.getInductiveMiniPattern().getLeaf5().setContents(data[4]);
+				
+
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getInductiveMiniPattern().getContainer())
+						.getComponents();
+
+				if (hasAllEmptyContents(kappa)) {
+					messageFactory = new MessageErrorDialog();
+					messageFactory.renderDialogWindow();
+				} else {
+					// Print sto arxeio TXT
+					DataFile dataFile = new DataTxt();
+					dataFile.initStream(patternLanguageName, "txt");
+					dataFile = new DataAddTabs(dataFile);
+
+					for (int i = 0; i < kappa.size(); i++) {
+						dataFile.writeFile(kappa.get(i).getTitle());
+						dataFile.writeFile(kappa.get(i).getContents());
+					}
+					((DataAddTabs) dataFile).closeFile();
+				}
+			}
+		});
+		
+		Button button_1 = new Button(this, SWT.NONE);
+		button_1.setText("Save Latex");
+		button_1.setSelection(true);
+		button_1.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		button_1.setBounds(10, 280, 154, 25);
+		button_1.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf
+				Pattern pattern = new Pattern();
+				pattern.init();
+				pattern.getInductiveMiniPattern().getLeaf1().setContents(data[0]);
+				pattern.getInductiveMiniPattern().getLeaf2().setContents(data[1]);
+				pattern.getInductiveMiniPattern().getLeaf3().setContents(data[2]);
+				pattern.getInductiveMiniPattern().getLeaf4().setContents(data[3]);
+				pattern.getInductiveMiniPattern().getLeaf5().setContents(data[4]);
+
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getInductiveMiniPattern().getContainer())
+						.getComponents();
+				if (hasAllEmptyContents(kappa)) {
+					messageFactory = new MessageErrorDialog();
+					messageFactory.renderDialogWindow();
+				} else {
+					// Print sto arxeio LATEX
+					DataFile dataFileLatex = new DataTxt();
+					dataFileLatex.initStream(patternLanguageName, "tex");
+					dataFileLatex = new DataLatextSyntax(dataFileLatex, patternLanguageName);
+
+					for (int i = 1; i < kappa.size(); i++) {
+						dataFileLatex.writeFile(kappa.get(i).getTitle());
+						dataFileLatex.writeFile(kappa.get(i).getContents());
+					}
+					((DataLatextSyntax) dataFileLatex).closeFile();
+				}
+			}
+		});
 		
 		try {
 			open();
@@ -159,5 +245,20 @@ public class InductiveMiniGUI extends Shell {
 			break;
 		}	
 		return "Error";
+	}
+	
+	private boolean hasAllEmptyContents(ArrayList<PatternComponent> list) {
+		int counter = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getContents().isEmpty()) {
+				counter++;
+			}
+		}
+
+		if (counter == list.size() - 1) {
+			return true;
+		}
+
+		return false;
 	}
 }

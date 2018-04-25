@@ -45,4 +45,34 @@ public class DeductiveMiniPattern extends PatternTest {
 	public PatternTest clone() {
 		return new DeductiveMiniPattern(this);
 	}
+
+	public PatternComponent getLeaf1() {
+		return leaf1;
+	}
+
+	public PatternComponent getLeaf2() {
+		return leaf2;
+	}
+
+	public PatternComponent getLeaf3() {
+		return leaf3;
+	}
+
+	public PatternComponent getLeaf4() {
+		return leaf4;
+	}
+
+	public PatternComponent getLeaf5() {
+		return leaf5;
+	}
+
+	public PatternComponent getLeaf6() {
+		return leaf6;
+	}
+
+	public PatternComponent getContainer() {
+		return container;
+	}
+	
+	
 }

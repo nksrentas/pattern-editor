@@ -10,9 +10,9 @@ public abstract class DataFile extends PatternComposite {
 	
 	public abstract void writeFile(String line);
 	
-	public void initStream() {
+	public void initStream(String fileName, String fileType) {
 		try {
-			this.printWriter = new PrintWriter("printedFile.txt");
+			this.printWriter = new PrintWriter(fileName + "." + fileType);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

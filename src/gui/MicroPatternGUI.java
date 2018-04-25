@@ -27,7 +27,8 @@ public class MicroPatternGUI extends Shell {
 	private Monitor primary;
 	private Display display;
 	private String[] data = new String[4];
-	
+	private MessageFactory messageFactory;
+
 	public MicroPatternGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(MicroPatternGUI.class, "/gui/icons8-code-fork-50.png"));
@@ -37,49 +38,56 @@ public class MicroPatternGUI extends Shell {
 		this.display = display;
 		Menu menu = new Menu(this, SWT.BAR);
 		setMenuBar(menu);
-		
+
 		Arrays.fill(data, "");
-		
+
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
 		mntmFile.setText("Add pattern");
-		
+
 		Menu menu_1 = new Menu(mntmFile);
 		mntmFile.setMenu(menu_1);
-		
+
 		MenuItem mntmAddPattern = new MenuItem(menu_1, SWT.NONE);
-		mntmAddPattern.setText("Add pattern");
-		
+		mntmAddPattern.setText("Micro-Pattern");
+		mntmAddPattern.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				new MicroPatternGUI(display, patternLanguageName);
+			}
+			
+		});
+
 		Button nameButton = new Button(this, SWT.NONE);
 		nameButton.setText("Name");
 		nameButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		nameButton.setBounds(10, 10, 154, 25);
 		listen(nameButton);
-		
+
 		Button templateButton = new Button(this, SWT.NONE);
 		templateButton.setText("Template");
 		templateButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		templateButton.setBounds(10, 41, 154, 25);
 		listen(templateButton);
-		
+
 		Button problemButton = new Button(this, SWT.NONE);
 		problemButton.setText("Problem");
 		problemButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		problemButton.setBounds(10, 72, 154, 25);
 		listen(problemButton);
-		
+
 		Button solutionButton = new Button(this, SWT.NONE);
 		solutionButton.setText("Solution");
 		solutionButton.setSelection(true);
 		solutionButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		solutionButton.setBounds(10, 103, 154, 25);
 		listen(solutionButton);
-		
-		Button saveButton = new Button(this, SWT.NONE);
-		saveButton.setText("Save");
-		saveButton.setSelection(true);
-		saveButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
-		saveButton.setBounds(10, 241, 154, 25);
-		saveButton.addSelectionListener(new SelectionAdapter() {
+
+		Button saveTXTButton = new Button(this, SWT.NONE);
+		saveTXTButton.setText("Save TXT");
+		saveTXTButton.setSelection(true);
+		saveTXTButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		saveTXTButton.setBounds(10, 195, 154, 25);
+		saveTXTButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Save to kathe leaf
@@ -90,35 +98,64 @@ public class MicroPatternGUI extends Shell {
 				pattern.getMicroPattern().getLeaf3().setContents(data[2]);
 				pattern.getMicroPattern().getLeaf4().setContents(data[3]);
 				
-				//((PatternComposite) pattern.getMicroPattern().getContainer()).print();
-			
-				// Print sto arxeio TXT
-				/*DataFile dataFile = new DataTxt();
-				dataFile.initStream();
-				dataFile = new DataAddTabs(dataFile);
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer()).getComponents();
-				for (int i = 0; i < kappa.size(); i++) {
-					dataFile.writeFile(kappa.get(i).getTitle());
-					dataFile.writeFile(kappa.get(i).getContents());
+
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer())
+						.getComponents();
+
+				if (hasAllEmptyContents(kappa)) {
+					messageFactory = new MessageErrorDialog();
+					messageFactory.renderDialogWindow();
+				} else {
+					// Print sto arxeio TXT
+					DataFile dataFile = new DataTxt();
+					dataFile.initStream(patternLanguageName, "txt");
+					dataFile = new DataAddTabs(dataFile);
+
+					for (int i = 0; i < kappa.size(); i++) {
+						dataFile.writeFile(kappa.get(i).getTitle());
+						dataFile.writeFile(kappa.get(i).getContents());
+					}
+					((DataAddTabs) dataFile).closeFile();
 				}
-				((DataAddTabs) dataFile).closeFile();*/
-				
-				
-				// Print sto arxeio LATEX
-				DataFile dataFileLatex = new DataTxt();
-				dataFileLatex.initStream();
-				dataFileLatex = new DataLatextSyntax(dataFileLatex);
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer()).getComponents();
-				((DataLatextSyntax) dataFileLatex).writeSectionStart();
-				for (int i = 0; i < kappa.size(); i++) {
-					dataFileLatex.writeFile(kappa.get(i).getTitle());
-					dataFileLatex.writeFile(kappa.get(i).getContents());
-				}
-				((DataLatextSyntax) dataFileLatex).closeFile();
-				
 			}
 		});
-		
+
+		Button btnSaveLatex = new Button(this, SWT.NONE);
+		btnSaveLatex.setText("Save Latex");
+		btnSaveLatex.setSelection(true);
+		btnSaveLatex.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		btnSaveLatex.setBounds(10, 226, 154, 25);
+		btnSaveLatex.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf
+				Pattern pattern = new Pattern();
+				pattern.init();
+				pattern.getMicroPattern().getLeaf1().setContents(data[0]);
+				pattern.getMicroPattern().getLeaf2().setContents(data[1]);
+				pattern.getMicroPattern().getLeaf3().setContents(data[2]);
+				pattern.getMicroPattern().getLeaf4().setContents(data[3]);
+
+				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer())
+						.getComponents();
+				if (hasAllEmptyContents(kappa)) {
+					messageFactory = new MessageErrorDialog();
+					messageFactory.renderDialogWindow();
+				} else {
+					// Print sto arxeio LATEX
+					DataFile dataFileLatex = new DataTxt();
+					dataFileLatex.initStream(patternLanguageName, "tex");
+					dataFileLatex = new DataLatextSyntax(dataFileLatex, patternLanguageName);
+
+					for (int i = 1; i < kappa.size(); i++) {
+						dataFileLatex.writeFile(kappa.get(i).getTitle());
+						dataFileLatex.writeFile(kappa.get(i).getContents());
+					}
+					((DataLatextSyntax) dataFileLatex).closeFile();
+				}
+			}
+		});
+
 		try {
 			open();
 			layout();
@@ -151,7 +188,7 @@ public class MicroPatternGUI extends Shell {
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 		this.setLocation(x, y);
 	}
-	
+
 	private void listen(Button button) {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -161,7 +198,7 @@ public class MicroPatternGUI extends Shell {
 			}
 		});
 	}
-	
+
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
@@ -181,7 +218,7 @@ public class MicroPatternGUI extends Shell {
 			break;
 		}
 	}
-	
+
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
@@ -197,5 +234,20 @@ public class MicroPatternGUI extends Shell {
 			break;
 		}
 		return "Error";
+	}
+
+	private boolean hasAllEmptyContents(ArrayList<PatternComponent> list) {
+		int counter = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getContents().isEmpty()) {
+				counter++;
+			}
+		}
+
+		if (counter == list.size() - 1) {
+			return true;
+		}
+
+		return false;
 	}
 }

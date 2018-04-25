@@ -12,9 +12,11 @@ public class DataLatextSyntax extends DataDecorator{
 	private static final String LATEX_CLOSE_CURLY_BRACKET = "}";
 	private int contextLine = 1;
 	private DataFile dataFile;
+	private String patternLanguageName;
 	
-	public DataLatextSyntax(DataFile dataFile) {
+	public DataLatextSyntax(DataFile dataFile, String patternLanguageName) {
 		this.dataFile = dataFile;
+		this.patternLanguageName = patternLanguageName;
 		createStubLatexCode();
 	}
 
@@ -37,11 +39,15 @@ public class DataLatextSyntax extends DataDecorator{
 	private void createStubLatexCode() {
 		dataFile.writeFile(LATEX_TYPE);
 		dataFile.writeFile(LATEX_OPEN_TAG_BEGIN);
-		dataFile.writeFile(LATEX_TITLE_TAG + LATEX_OPEN_CURLY_BRACKET + "temp name" + LATEX_CLOSE_CURLY_BRACKET);
+		dataFile.writeFile(LATEX_TITLE_TAG + LATEX_OPEN_CURLY_BRACKET + patternLanguageName + LATEX_CLOSE_CURLY_BRACKET);
 		dataFile.writeFile(LATEX_MAKE_TITLE_TAG);	
 	}
 	
-	public void writeSectionStart() {
-		dataFile.writeFile(LATEX_SECTION_TAG + LATEX_OPEN_CURLY_BRACKET + "TEMP PATTERN LANGUAGE" + LATEX_CLOSE_CURLY_BRACKET);
+	public void writeSectionStart(String patternTemplateName) {
+		dataFile.writeFile(LATEX_SECTION_TAG + LATEX_OPEN_CURLY_BRACKET + patternTemplateName + LATEX_CLOSE_CURLY_BRACKET);
+	}
+	
+	public void saveName(String patternName) {
+		dataFile.writeFile(patternName);
 	}
 }
