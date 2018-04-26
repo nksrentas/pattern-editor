@@ -20,21 +20,21 @@ public class GangOfFourPattern extends PatternTest {
 
 	public GangOfFourPattern() {
 		container = new PatternComposite(PATTERN_NAME_GANG_OF_FOUR);
-		leaf1 = new PatternPart(PART_TITLE_NAME, "ena");
-		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "dio");
-		leaf3 = new PatternPart(PART_TITLE_PATTERN_CLASSIFICATION, "tria");
-		leaf4 = new PatternPart(PART_TITLE_INTENT, "tessera");
-		leaf5 = new PatternPart(PART_TITLE_ALSO_KNOWN_AS, "pente");
-		leaf6 = new PatternPart(PART_TITLE_MOTIVATION, "exi");
-		leaf7 = new PatternPart(PART_TITLE_APPLICABILITY, "efta");
-		leaf8 = new PatternPart(PART_TITLE_STRUCTURE, "okto");
-		leaf9 = new PatternPart(PART_TITLE_PARTICIPANTS, "enea");
-		leaf10 = new PatternPart(PART_TITLE_COLLABORATIONS, "deka");
-		leaf11 = new PatternPart(PART_TITLE_CONSEQUENCES, "enteka");
-		leaf12 = new PatternPart(PART_TITLE_IMPLEMETATION, "dwdeka");
-		leaf13 = new PatternPart(PART_TITLE_SAMPLE_CODE, "deka-tria");
-		leaf14 = new PatternPart(PART_TITLE_KNOWN_USES, "deka-tessera");
-		leaf15 = new PatternPart(PART_TITLE_RELATED_PATTERNS, "deka-pente");
+		leaf1 = new PatternPart(PART_TITLE_NAME, "");
+		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "");
+		leaf3 = new PatternPart(PART_TITLE_PATTERN_CLASSIFICATION, "");
+		leaf4 = new PatternPart(PART_TITLE_INTENT, "");
+		leaf5 = new PatternPart(PART_TITLE_ALSO_KNOWN_AS, "");
+		leaf6 = new PatternPart(PART_TITLE_MOTIVATION, "");
+		leaf7 = new PatternPart(PART_TITLE_APPLICABILITY, "");
+		leaf8 = new PatternPart(PART_TITLE_STRUCTURE, "");
+		leaf9 = new PatternPart(PART_TITLE_PARTICIPANTS, "");
+		leaf10 = new PatternPart(PART_TITLE_COLLABORATIONS, "");
+		leaf11 = new PatternPart(PART_TITLE_CONSEQUENCES, "");
+		leaf12 = new PatternPart(PART_TITLE_IMPLEMETATION, "");
+		leaf13 = new PatternPart(PART_TITLE_SAMPLE_CODE, "");
+		leaf14 = new PatternPart(PART_TITLE_KNOWN_USES, "");
+		leaf15 = new PatternPart(PART_TITLE_RELATED_PATTERNS, "");
 		doAddCool();
 	}
 

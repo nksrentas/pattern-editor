@@ -11,12 +11,12 @@ public class DeductiveMiniPattern extends PatternTest {
 
 	public DeductiveMiniPattern() {
 		container = new PatternComposite(PATTERN_NAME_DEDUCTIVE);
-		leaf1 = new PatternPart(PART_TITLE_NAME, "ena");
-		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "dio");
-		leaf3 = new PatternPart(PART_TITLE_PROBLEM, "tria");
-		leaf4 = new PatternPart(PART_TITLE_SOLUTION, "tessera");
-		leaf5 = new PatternPart(PART_TITLE_BENEFIT, "pente");
-		leaf6 = new PatternPart(PART_TITLE_CONSEQUENCES, "exi");
+		leaf1 = new PatternPart(PART_TITLE_NAME, "");
+		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "");
+		leaf3 = new PatternPart(PART_TITLE_PROBLEM, "");
+		leaf4 = new PatternPart(PART_TITLE_SOLUTION, "");
+		leaf5 = new PatternPart(PART_TITLE_BENEFIT, "");
+		leaf6 = new PatternPart(PART_TITLE_CONSEQUENCES, "");
 		doAddCool();
 	}
 

@@ -29,7 +29,12 @@ public class InductiveMiniGUI extends Shell {
 	private String test;
 	private MessageFactory messageFactory;
 	private String[] data = new String[5];
-	
+	private boolean microPattern = false;
+	private boolean inductivePattern = false;
+	private boolean deductivePattern = false;
+	private boolean gangPattern = false;
+	private boolean systemPattern = false;
+
 	public InductiveMiniGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(InductiveMiniGUI.class, "/gui/icons8-code-fork-50.png"));
@@ -39,50 +44,119 @@ public class InductiveMiniGUI extends Shell {
 		this.display = display;
 		Menu menu = new Menu(this, SWT.BAR);
 		setMenuBar(menu);
-		
+
 		Arrays.fill(data, "");
-		
+
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
-		mntmFile.setText("File");
-		
+		mntmFile.setText("Add pattern");
+
 		Menu menu_1 = new Menu(mntmFile);
 		mntmFile.setMenu(menu_1);
-		
-		MenuItem mntmAddPattern = new MenuItem(menu_1, SWT.NONE);
-		mntmAddPattern.setText("Add pattern");
-		
+
+		MenuItem microPatternMenu = new MenuItem(menu_1, SWT.NONE);
+		microPatternMenu.setText("Micro-Pattern");
+		microPatternMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				microPattern = true;
+				new MicroPatternGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem inductiveMiniPatternMenu = new MenuItem(menu_1, SWT.NONE);
+		inductiveMiniPatternMenu.setText("Inductive mini pattern");
+		inductiveMiniPatternMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				inductivePattern = true;
+				new InductiveMiniGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem deductiveMenu = new MenuItem(menu_1, SWT.NONE);
+		deductiveMenu.setText("Deductive mini pattern");
+		deductiveMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				deductivePattern = true;
+				new DeductiveMiniGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem gangOfFourMenu = new MenuItem(menu_1, SWT.NONE);
+		gangOfFourMenu.setText("Gang of four");
+		gangOfFourMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				gangPattern = true;
+				new GangFourGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem systemofPatternsMenu = new MenuItem(menu_1, SWT.NONE);
+		systemofPatternsMenu.setText("Systemof patterns");
+		systemofPatternsMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				systemPattern = true;
+				new SystemOfPatternsGUI(display, patternLanguageName);
+			}
+
+		});
+
 		Button nameButton = new Button(this, SWT.NONE);
 		Button templateButton = new Button(this, SWT.NONE);
 		Button solutionButton = new Button(this, SWT.NONE);
 		Button contextButton = new Button(this, SWT.NONE);
 		Button forcesButton = new Button(this, SWT.NONE);
 		forcesButton.setSelection(true);
-		
+
 		nameButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		nameButton.setBounds(10, 10, 154, 25);
 		nameButton.setText("Name");
 		listen(nameButton);
-	
+
 		templateButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		templateButton.setBounds(10, 41, 154, 25);
 		templateButton.setText("Template");
 		listen(templateButton);
-		
+
 		solutionButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		solutionButton.setBounds(10, 134, 154, 25);
 		solutionButton.setText("Solution");
 		listen(solutionButton);
-		
+
 		contextButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		contextButton.setBounds(10, 72, 154, 25);
 		contextButton.setText("Context");
 		listen(contextButton);
-		
+
 		forcesButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		forcesButton.setBounds(10, 103, 154, 25);
 		forcesButton.setText("Forces");
 		listen(forcesButton);
-		
+
+		Button btnSave = new Button(this, SWT.NONE);
+		btnSave.setText("Save");
+		btnSave.setSelection(true);
+		btnSave.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		btnSave.setBounds(10, 218, 154, 25);
+		btnSave.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf
+				PatternMain.getPattern().getInductiveMiniPattern().getLeaf1().setContents(data[0]);
+				PatternMain.getPattern().getInductiveMiniPattern().getLeaf2().setContents(data[1]);
+				PatternMain.getPattern().getInductiveMiniPattern().getLeaf3().setContents(data[2]);
+				PatternMain.getPattern().getInductiveMiniPattern().getLeaf4().setContents(data[3]);
+				PatternMain.getPattern().getInductiveMiniPattern().getLeaf5().setContents(data[4]);
+			}
+		});
+
 		Button button = new Button(this, SWT.NONE);
 		button.setText("Save TXT");
 		button.setSelection(true);
@@ -91,18 +165,8 @@ public class InductiveMiniGUI extends Shell {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// Save to kathe leaf
-				Pattern pattern = new Pattern();
-				pattern.init();
-				pattern.getInductiveMiniPattern().getLeaf1().setContents(data[0]);
-				pattern.getInductiveMiniPattern().getLeaf2().setContents(data[1]);
-				pattern.getInductiveMiniPattern().getLeaf3().setContents(data[2]);
-				pattern.getInductiveMiniPattern().getLeaf4().setContents(data[3]);
-				pattern.getInductiveMiniPattern().getLeaf5().setContents(data[4]);
-				
-
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getInductiveMiniPattern().getContainer())
-						.getComponents();
+				ArrayList<PatternComponent> kappa = ((PatternComposite) PatternMain.getPattern()
+						.getInductiveMiniPattern().getContainer()).getComponents();
 
 				if (hasAllEmptyContents(kappa)) {
 					messageFactory = new MessageErrorDialog();
@@ -113,15 +177,42 @@ public class InductiveMiniGUI extends Shell {
 					dataFile.initStream(patternLanguageName, "txt");
 					dataFile = new DataAddTabs(dataFile);
 
-					for (int i = 0; i < kappa.size(); i++) {
-						dataFile.writeFile(kappa.get(i).getTitle());
-						dataFile.writeFile(kappa.get(i).getContents());
+					printToFile(dataFile, kappa);
+
+					if (microPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getMicroPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (inductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getInductiveMiniPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (deductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getDeductiveMiniPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (gangPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getGangOfFourPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (systemPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getSystemOfPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
 					}
 					((DataAddTabs) dataFile).closeFile();
 				}
 			}
 		});
-		
+
 		Button button_1 = new Button(this, SWT.NONE);
 		button_1.setText("Save Latex");
 		button_1.setSelection(true);
@@ -130,17 +221,8 @@ public class InductiveMiniGUI extends Shell {
 		button_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// Save to kathe leaf
-				Pattern pattern = new Pattern();
-				pattern.init();
-				pattern.getInductiveMiniPattern().getLeaf1().setContents(data[0]);
-				pattern.getInductiveMiniPattern().getLeaf2().setContents(data[1]);
-				pattern.getInductiveMiniPattern().getLeaf3().setContents(data[2]);
-				pattern.getInductiveMiniPattern().getLeaf4().setContents(data[3]);
-				pattern.getInductiveMiniPattern().getLeaf5().setContents(data[4]);
-
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getInductiveMiniPattern().getContainer())
-						.getComponents();
+				ArrayList<PatternComponent> kappa = ((PatternComposite) PatternMain.getPattern()
+						.getInductiveMiniPattern().getContainer()).getComponents();
 				if (hasAllEmptyContents(kappa)) {
 					messageFactory = new MessageErrorDialog();
 					messageFactory.renderDialogWindow();
@@ -150,15 +232,42 @@ public class InductiveMiniGUI extends Shell {
 					dataFileLatex.initStream(patternLanguageName, "tex");
 					dataFileLatex = new DataLatextSyntax(dataFileLatex, patternLanguageName);
 
-					for (int i = 1; i < kappa.size(); i++) {
-						dataFileLatex.writeFile(kappa.get(i).getTitle());
-						dataFileLatex.writeFile(kappa.get(i).getContents());
+					printToFile(dataFileLatex, kappa);
+					
+					if (microPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getMicroPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (inductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getInductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (deductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getDeductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (gangPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getGangOfFourPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (systemPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getSystemOfPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
 					}
 					((DataLatextSyntax) dataFileLatex).closeFile();
 				}
 			}
 		});
-		
+
 		try {
 			open();
 			layout();
@@ -194,7 +303,7 @@ public class InductiveMiniGUI extends Shell {
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 		this.setLocation(x, y);
 	}
-	
+
 	private void listen(Button button) {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -204,7 +313,7 @@ public class InductiveMiniGUI extends Shell {
 			}
 		});
 	}
-	
+
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
@@ -225,9 +334,9 @@ public class InductiveMiniGUI extends Shell {
 		default:
 			System.out.println("Input problem");
 			break;
-		}			
+		}
 	}
-	
+
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
@@ -243,10 +352,10 @@ public class InductiveMiniGUI extends Shell {
 		default:
 			System.out.println("Input problem");
 			break;
-		}	
+		}
 		return "Error";
 	}
-	
+
 	private boolean hasAllEmptyContents(ArrayList<PatternComponent> list) {
 		int counter = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -260,5 +369,12 @@ public class InductiveMiniGUI extends Shell {
 		}
 
 		return false;
+	}
+
+	private void printToFile(DataFile dataFile, ArrayList<PatternComponent> list) {
+		for (int i = 0; i < list.size(); i++) {
+			dataFile.writeFile(list.get(i).getTitle());
+			dataFile.writeFile(list.get(i).getContents());
+		}
 	}
 }

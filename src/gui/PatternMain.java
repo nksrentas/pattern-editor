@@ -16,6 +16,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import datamodel.Pattern;
+
 public class PatternMain {
 	private final static String MICRO_PATTERN_TEMPLATE = "Micro-Pattern Template";
 	private final static String INDUCTIVE_MINI_PATTERN = "Inductive Mini-Pattern";
@@ -30,8 +32,10 @@ public class PatternMain {
 	private Button microPatternRadio;
 	private static MessageFactory messageFactory;
 	private Monitor primary;
-	private Display display;
+	private static Display display;
 
+	private static Pattern pattern; 
+	
 	public static void main(String[] args) {
 		try {
 			PatternMain window = new PatternMain();
@@ -62,6 +66,9 @@ public class PatternMain {
 		shlPatternsEditor.setSize(392, 374);
 		shlPatternsEditor.setText("Patterns Editor");
 		shlPatternsEditor.setLayout(null);
+		
+		pattern = new Pattern();
+		pattern.init();
 
 		CLabel topHeader = new CLabel(shlPatternsEditor, SWT.CENTER);
 		topHeader.setBackground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_LIGHT_SHADOW));
@@ -195,4 +202,9 @@ public class PatternMain {
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 		shlPatternsEditor.setLocation(x, y);
 	}
+
+	public static Pattern getPattern() {
+		return pattern;
+	}
+
 }

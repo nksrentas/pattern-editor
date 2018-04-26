@@ -28,6 +28,11 @@ public class MicroPatternGUI extends Shell {
 	private Display display;
 	private String[] data = new String[4];
 	private MessageFactory messageFactory;
+	private boolean microPattern = false;
+	private boolean inductivePattern = false;
+	private boolean deductivePattern = false;
+	private boolean gangPattern = false;
+	private boolean systemPattern = false;
 
 	public MicroPatternGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
@@ -47,14 +52,59 @@ public class MicroPatternGUI extends Shell {
 		Menu menu_1 = new Menu(mntmFile);
 		mntmFile.setMenu(menu_1);
 
-		MenuItem mntmAddPattern = new MenuItem(menu_1, SWT.NONE);
-		mntmAddPattern.setText("Micro-Pattern");
-		mntmAddPattern.addSelectionListener(new SelectionAdapter() {
+		MenuItem microPatternMenu = new MenuItem(menu_1, SWT.NONE);
+		microPatternMenu.setText("Micro-Pattern");
+		microPatternMenu.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				microPattern = true;
 				new MicroPatternGUI(display, patternLanguageName);
 			}
-			
+
+		});
+
+		MenuItem inductiveMiniPatternMenu = new MenuItem(menu_1, SWT.NONE);
+		inductiveMiniPatternMenu.setText("Inductive mini pattern");
+		inductiveMiniPatternMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				inductivePattern = true;
+				new InductiveMiniGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem deductiveMenu = new MenuItem(menu_1, SWT.NONE);
+		deductiveMenu.setText("Deductive mini pattern");
+		deductiveMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				deductivePattern = true;
+				new DeductiveMiniGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem gangOfFourMenu = new MenuItem(menu_1, SWT.NONE);
+		gangOfFourMenu.setText("Gang of four");
+		gangOfFourMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				gangPattern = true;
+				new GangFourGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem systemofPatternsMenu = new MenuItem(menu_1, SWT.NONE);
+		systemofPatternsMenu.setText("Systemof patterns");
+		systemofPatternsMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				systemPattern = true;
+				new SystemOfPatternsGUI(display, patternLanguageName);
+			}
+
 		});
 
 		Button nameButton = new Button(this, SWT.NONE);
@@ -82,6 +132,22 @@ public class MicroPatternGUI extends Shell {
 		solutionButton.setBounds(10, 103, 154, 25);
 		listen(solutionButton);
 
+		Button btnSave = new Button(this, SWT.NONE);
+		btnSave.setText("Save");
+		btnSave.setSelection(true);
+		btnSave.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		btnSave.setBounds(10, 164, 154, 25);
+		btnSave.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf
+				PatternMain.getPattern().getMicroPattern().getLeaf1().setContents(data[0]);
+				PatternMain.getPattern().getMicroPattern().getLeaf2().setContents(data[1]);
+				PatternMain.getPattern().getMicroPattern().getLeaf3().setContents(data[2]);
+				PatternMain.getPattern().getMicroPattern().getLeaf4().setContents(data[3]);
+			}
+		});
+
 		Button saveTXTButton = new Button(this, SWT.NONE);
 		saveTXTButton.setText("Save TXT");
 		saveTXTButton.setSelection(true);
@@ -90,17 +156,8 @@ public class MicroPatternGUI extends Shell {
 		saveTXTButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// Save to kathe leaf
-				Pattern pattern = new Pattern();
-				pattern.init();
-				pattern.getMicroPattern().getLeaf1().setContents(data[0]);
-				pattern.getMicroPattern().getLeaf2().setContents(data[1]);
-				pattern.getMicroPattern().getLeaf3().setContents(data[2]);
-				pattern.getMicroPattern().getLeaf4().setContents(data[3]);
-				
-
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer())
-						.getComponents();
+				ArrayList<PatternComponent> kappa = ((PatternComposite) PatternMain.getPattern().getMicroPattern()
+						.getContainer()).getComponents();
 
 				if (hasAllEmptyContents(kappa)) {
 					messageFactory = new MessageErrorDialog();
@@ -111,10 +168,38 @@ public class MicroPatternGUI extends Shell {
 					dataFile.initStream(patternLanguageName, "txt");
 					dataFile = new DataAddTabs(dataFile);
 
-					for (int i = 0; i < kappa.size(); i++) {
-						dataFile.writeFile(kappa.get(i).getTitle());
-						dataFile.writeFile(kappa.get(i).getContents());
+					printToFile(dataFile, kappa);
+
+					if (microPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getMicroPattern().getContainer()).getComponents();
+						printToFile(dataFile, kappa2);
 					}
+
+					if (inductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getInductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFile, kappa2);
+					}
+
+					if (deductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getDeductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFile, kappa2);
+					}
+
+					if (gangPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getGangOfFourPattern().getContainer()).getComponents();
+						printToFile(dataFile, kappa2);
+					}
+
+					if (systemPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getSystemOfPattern().getContainer()).getComponents();
+						printToFile(dataFile, kappa2);
+					}
+
 					((DataAddTabs) dataFile).closeFile();
 				}
 			}
@@ -129,15 +214,9 @@ public class MicroPatternGUI extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Save to kathe leaf
-				Pattern pattern = new Pattern();
-				pattern.init();
-				pattern.getMicroPattern().getLeaf1().setContents(data[0]);
-				pattern.getMicroPattern().getLeaf2().setContents(data[1]);
-				pattern.getMicroPattern().getLeaf3().setContents(data[2]);
-				pattern.getMicroPattern().getLeaf4().setContents(data[3]);
 
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getMicroPattern().getContainer())
-						.getComponents();
+				ArrayList<PatternComponent> kappa = ((PatternComposite) PatternMain.getPattern().getMicroPattern()
+						.getContainer()).getComponents();
 				if (hasAllEmptyContents(kappa)) {
 					messageFactory = new MessageErrorDialog();
 					messageFactory.renderDialogWindow();
@@ -147,10 +226,38 @@ public class MicroPatternGUI extends Shell {
 					dataFileLatex.initStream(patternLanguageName, "tex");
 					dataFileLatex = new DataLatextSyntax(dataFileLatex, patternLanguageName);
 
-					for (int i = 1; i < kappa.size(); i++) {
-						dataFileLatex.writeFile(kappa.get(i).getTitle());
-						dataFileLatex.writeFile(kappa.get(i).getContents());
+					printToFile(dataFileLatex, kappa);
+
+					if (microPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getMicroPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
 					}
+					
+					if (inductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getInductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (deductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getDeductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (gangPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getGangOfFourPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (systemPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getSystemOfPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+
 					((DataLatextSyntax) dataFileLatex).closeFile();
 				}
 			}
@@ -249,5 +356,12 @@ public class MicroPatternGUI extends Shell {
 		}
 
 		return false;
+	}
+
+	private void printToFile(DataFile dataFile, ArrayList<PatternComponent> list) {
+		for (int i = 0; i < list.size(); i++) {
+			dataFile.writeFile(list.get(i).getTitle());
+			dataFile.writeFile(list.get(i).getContents());
+		}
 	}
 }

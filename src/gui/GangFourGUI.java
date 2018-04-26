@@ -28,12 +28,12 @@ public class GangFourGUI extends Shell {
 	private Display display;
 	private String[] data = new String[15];
 	private MessageFactory messageFactory;
-	/**
-	 * Create the shell.
-	 * 
-	 * @param display
-	 * @param string 
-	 */
+	private boolean microPattern = false;
+	private boolean inductivePattern = false;
+	private boolean deductivePattern = false;
+	private boolean gangPattern = false;
+	private boolean systemPattern = false;
+
 	public GangFourGUI(Display display, String patternLanguageName) {
 		super(display, SWT.SHELL_TRIM);
 		setImage(SWTResourceManager.getImage(GangFourGUI.class, "/gui/icons8-code-fork-50.png"));
@@ -43,18 +43,70 @@ public class GangFourGUI extends Shell {
 		this.display = display;
 		Menu menu = new Menu(this, SWT.BAR);
 		setMenuBar(menu);
-		
+
 		Arrays.fill(data, "");
-		
+
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
-		mntmFile.setText("File");
-		
+		mntmFile.setText("Add pattern");
+
 		Menu menu_1 = new Menu(mntmFile);
 		mntmFile.setMenu(menu_1);
-		
-		MenuItem mntmAddPattern = new MenuItem(menu_1, SWT.NONE);
-		mntmAddPattern.setText("Add pattern");
-		
+
+		MenuItem microPatternMenu = new MenuItem(menu_1, SWT.NONE);
+		microPatternMenu.setText("Micro-Pattern");
+		microPatternMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				microPattern = true;
+				new MicroPatternGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem inductiveMiniPatternMenu = new MenuItem(menu_1, SWT.NONE);
+		inductiveMiniPatternMenu.setText("Inductive mini pattern");
+		inductiveMiniPatternMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				inductivePattern = true;
+				new InductiveMiniGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem deductiveMenu = new MenuItem(menu_1, SWT.NONE);
+		deductiveMenu.setText("Deductive mini pattern");
+		deductiveMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				deductivePattern = true;
+				new DeductiveMiniGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem gangOfFourMenu = new MenuItem(menu_1, SWT.NONE);
+		gangOfFourMenu.setText("Gang of four");
+		gangOfFourMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				gangPattern = true;
+				new GangFourGUI(display, patternLanguageName);
+			}
+
+		});
+
+		MenuItem systemofPatternsMenu = new MenuItem(menu_1, SWT.NONE);
+		systemofPatternsMenu.setText("Systemof patterns");
+		systemofPatternsMenu.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				systemPattern = true;
+				new SystemOfPatternsGUI(display, patternLanguageName);
+			}
+
+		});
+
 		Button nameButton = new Button(this, SWT.NONE);
 		Button templateButton = new Button(this, SWT.NONE);
 		Button ConsequencesButton = new Button(this, SWT.NONE);
@@ -80,82 +132,109 @@ public class GangFourGUI extends Shell {
 		Button sampleCodeButton = new Button(this, SWT.NONE);
 		Button knownUsesButton = new Button(this, SWT.NONE);
 		Button relatedPatternButton = new Button(this, SWT.NONE);
-		
+
 		nameButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		nameButton.setBounds(10, 10, 154, 25);
 		nameButton.setText("Name");
 		listen(nameButton);
-	
+
 		templateButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		templateButton.setBounds(10, 41, 154, 25);
 		templateButton.setText("Template");
 		listen(templateButton);
-		
+
 		ConsequencesButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		ConsequencesButton.setText("Consequences");
 		ConsequencesButton.setBounds(10, 320, 154, 25);
 		listen(ConsequencesButton);
-		
+
 		classificationButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		classificationButton.setBounds(10, 72, 154, 25);
 		classificationButton.setText("Classification");
 		listen(classificationButton);
-		
+
 		intentButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		intentButton.setBounds(10, 103, 154, 25);
 		intentButton.setText("Intent");
 		listen(intentButton);
-		
+
 		alsoKnowsButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		alsoKnowsButton.setBounds(10, 134, 154, 25);
 		alsoKnowsButton.setText("Also Known As");
 		listen(alsoKnowsButton);
-		
+
 		motivationButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		motivationButton.setBounds(10, 165, 154, 25);
 		motivationButton.setText("Motivation");
 		listen(motivationButton);
-		
+
 		applicabilityButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		applicabilityButton.setBounds(10, 196, 154, 25);
 		applicabilityButton.setText("Applicability");
 		listen(applicabilityButton);
-		
+
 		structureButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		structureButton.setText("Structure");
 		structureButton.setBounds(10, 227, 154, 25);
 		listen(structureButton);
-		
+
 		participantsButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		participantsButton.setText("Participants");
 		participantsButton.setBounds(10, 258, 154, 25);
 		listen(participantsButton);
-		
+
 		collaborationButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		collaborationButton.setText("Collaborations");
 		collaborationButton.setBounds(10, 289, 154, 25);
 		listen(collaborationButton);
-		
+
 		implementationButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		implementationButton.setText("Implementation");
 		implementationButton.setBounds(194, 10, 154, 25);
 		listen(implementationButton);
-		
+
 		sampleCodeButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		sampleCodeButton.setText("Sample Code");
 		sampleCodeButton.setBounds(194, 41, 154, 25);
 		listen(sampleCodeButton);
-		
+
 		knownUsesButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		knownUsesButton.setText("Known Uses");
 		knownUsesButton.setBounds(194, 72, 154, 25);
 		listen(knownUsesButton);
-		
+
 		relatedPatternButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
 		relatedPatternButton.setText("Related Pattern");
 		relatedPatternButton.setBounds(194, 103, 154, 25);
 		listen(relatedPatternButton);
 		
+		Button btnSave = new Button(this, SWT.NONE);
+		btnSave.setText("Save");
+		btnSave.setSelection(true);
+		btnSave.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		btnSave.setBounds(194, 301, 154, 25);
+		btnSave.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				// Save to kathe leaf 
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf1().setContents(data[0]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf2().setContents(data[1]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf3().setContents(data[2]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf4().setContents(data[3]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf5().setContents(data[4]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf6().setContents(data[5]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf7().setContents(data[6]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf8().setContents(data[7]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf9().setContents(data[8]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf10().setContents(data[9]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf11().setContents(data[10]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf12().setContents(data[11]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf13().setContents(data[12]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf14().setContents(data[13]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf15().setContents(data[14]);
+			}
+		});
+
 		Button button = new Button(this, SWT.NONE);
 		button.setText("Save TXT");
 		button.setSelection(true);
@@ -164,27 +243,7 @@ public class GangFourGUI extends Shell {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// Save to kathe leaf
-				Pattern pattern = new Pattern();
-				pattern.init();
-				pattern.getGangOfFourPattern().getLeaf1().setContents(data[0]);
-				pattern.getGangOfFourPattern().getLeaf2().setContents(data[1]);
-				pattern.getGangOfFourPattern().getLeaf3().setContents(data[2]);
-				pattern.getGangOfFourPattern().getLeaf4().setContents(data[3]);
-				pattern.getGangOfFourPattern().getLeaf5().setContents(data[4]);
-				pattern.getGangOfFourPattern().getLeaf6().setContents(data[5]);
-				pattern.getGangOfFourPattern().getLeaf7().setContents(data[6]);
-				pattern.getGangOfFourPattern().getLeaf8().setContents(data[7]);
-				pattern.getGangOfFourPattern().getLeaf9().setContents(data[8]);
-				pattern.getGangOfFourPattern().getLeaf10().setContents(data[9]);
-				pattern.getGangOfFourPattern().getLeaf11().setContents(data[10]);
-				pattern.getGangOfFourPattern().getLeaf12().setContents(data[11]);
-				pattern.getGangOfFourPattern().getLeaf13().setContents(data[12]);
-				pattern.getGangOfFourPattern().getLeaf14().setContents(data[13]);
-				pattern.getGangOfFourPattern().getLeaf15().setContents(data[14]);
-				
-
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getGangOfFourPattern().getContainer())
+				ArrayList<PatternComponent> kappa = ((PatternComposite) PatternMain.getPattern().getGangOfFourPattern().getContainer())
 						.getComponents();
 
 				if (hasAllEmptyContents(kappa)) {
@@ -196,15 +255,42 @@ public class GangFourGUI extends Shell {
 					dataFile.initStream(patternLanguageName, "txt");
 					dataFile = new DataAddTabs(dataFile);
 
-					for (int i = 0; i < kappa.size(); i++) {
-						dataFile.writeFile(kappa.get(i).getTitle());
-						dataFile.writeFile(kappa.get(i).getContents());
+					printToFile(dataFile, kappa);
+
+					if (microPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getMicroPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (inductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getInductiveMiniPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (deductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getDeductiveMiniPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (gangPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getGangOfFourPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
+					} 
+					
+					if (systemPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern().getSystemOfPattern().getContainer())
+								.getComponents();
+						printToFile(dataFile, kappa2);
 					}
 					((DataAddTabs) dataFile).closeFile();
 				}
 			}
 		});
-		
+
 		Button button_1 = new Button(this, SWT.NONE);
 		button_1.setText("Save Latex");
 		button_1.setSelection(true);
@@ -213,26 +299,7 @@ public class GangFourGUI extends Shell {
 		button_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// Save to kathe leaf
-				Pattern pattern = new Pattern();
-				pattern.init();
-				pattern.getGangOfFourPattern().getLeaf1().setContents(data[0]);
-				pattern.getGangOfFourPattern().getLeaf2().setContents(data[1]);
-				pattern.getGangOfFourPattern().getLeaf3().setContents(data[2]);
-				pattern.getGangOfFourPattern().getLeaf4().setContents(data[3]);
-				pattern.getGangOfFourPattern().getLeaf5().setContents(data[4]);
-				pattern.getGangOfFourPattern().getLeaf6().setContents(data[5]);
-				pattern.getGangOfFourPattern().getLeaf7().setContents(data[6]);
-				pattern.getGangOfFourPattern().getLeaf8().setContents(data[7]);
-				pattern.getGangOfFourPattern().getLeaf9().setContents(data[8]);
-				pattern.getGangOfFourPattern().getLeaf10().setContents(data[9]);
-				pattern.getGangOfFourPattern().getLeaf11().setContents(data[10]);
-				pattern.getGangOfFourPattern().getLeaf12().setContents(data[11]);
-				pattern.getGangOfFourPattern().getLeaf13().setContents(data[12]);
-				pattern.getGangOfFourPattern().getLeaf14().setContents(data[13]);
-				pattern.getGangOfFourPattern().getLeaf15().setContents(data[14]);
-
-				ArrayList<PatternComponent> kappa = ((PatternComposite) pattern.getGangOfFourPattern().getContainer())
+				ArrayList<PatternComponent> kappa = ((PatternComposite) PatternMain.getPattern().getGangOfFourPattern().getContainer())
 						.getComponents();
 				if (hasAllEmptyContents(kappa)) {
 					messageFactory = new MessageErrorDialog();
@@ -243,15 +310,42 @@ public class GangFourGUI extends Shell {
 					dataFileLatex.initStream(patternLanguageName, "tex");
 					dataFileLatex = new DataLatextSyntax(dataFileLatex, patternLanguageName);
 
-					for (int i = 1; i < kappa.size(); i++) {
-						dataFileLatex.writeFile(kappa.get(i).getTitle());
-						dataFileLatex.writeFile(kappa.get(i).getContents());
+					printToFile(dataFileLatex, kappa);
+
+					if (microPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getMicroPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (inductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getInductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (deductivePattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getDeductiveMiniPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (gangPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getGangOfFourPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
+					}
+					
+					if (systemPattern) {
+						ArrayList<PatternComponent> kappa2 = ((PatternComposite) PatternMain.getPattern()
+								.getSystemOfPattern().getContainer()).getComponents();
+						printToFile(dataFileLatex, kappa2);
 					}
 					((DataLatextSyntax) dataFileLatex).closeFile();
 				}
 			}
 		});
-		
+
 		try {
 			open();
 			layout();
@@ -287,7 +381,7 @@ public class GangFourGUI extends Shell {
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 		this.setLocation(x, y);
 	}
-	
+
 	private void listen(Button button) {
 		button.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -297,7 +391,7 @@ public class GangFourGUI extends Shell {
 			}
 		});
 	}
-	
+
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
@@ -348,9 +442,9 @@ public class GangFourGUI extends Shell {
 		default:
 			System.out.println("Input problem");
 			break;
-		}		
+		}
 	}
-	
+
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
@@ -386,10 +480,10 @@ public class GangFourGUI extends Shell {
 		default:
 			System.out.println("Input problem");
 			break;
-		}	
+		}
 		return "Error";
 	}
-	
+
 	private boolean hasAllEmptyContents(ArrayList<PatternComponent> list) {
 		int counter = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -403,5 +497,12 @@ public class GangFourGUI extends Shell {
 		}
 
 		return false;
+	}
+
+	private void printToFile(DataFile dataFile, ArrayList<PatternComponent> list) {
+		for (int i = 0; i < list.size(); i++) {
+			dataFile.writeFile(list.get(i).getTitle());
+			dataFile.writeFile(list.get(i).getContents());
+		}
 	}
 }

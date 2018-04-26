@@ -9,10 +9,10 @@ public class MicroPattern extends PatternTest {
 	
 	public MicroPattern() {
 		setContainer(new PatternComposite(PATTERN_NAME_MICRO));
-		leaf1 = new PatternPart(PART_TITLE_NAME, "ena");
-		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "dio");
-		leaf3 = new PatternPart(PART_TITLE_PROBLEM, "tria");
-		leaf4 = new PatternPart(PART_TITLE_SOLUTION, "tessera");
+		leaf1 = new PatternPart(PART_TITLE_NAME, "");
+		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "");
+		leaf3 = new PatternPart(PART_TITLE_PROBLEM, "");
+		leaf4 = new PatternPart(PART_TITLE_SOLUTION, "");
 		doAddCool();
 	}
 	

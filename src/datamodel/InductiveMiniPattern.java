@@ -10,11 +10,11 @@ public class InductiveMiniPattern extends PatternTest {
 
 	public InductiveMiniPattern() {
 		container = new PatternComposite(PATTERN_NAME_INDUCTIVE);
-		leaf1 = new PatternPart(PART_TITLE_NAME, "ena");
-		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "dio");
-		leaf3 = new PatternPart(PART_TITLE_CONTEXT, "tria");
-		leaf4 = new PatternPart(PART_TITLE_FORCES, "tessera");
-		leaf5 = new PatternPart(PART_TITLE_SOLUTION, "pente");
+		leaf1 = new PatternPart(PART_TITLE_NAME, "");
+		leaf2 = new PatternPart(PART_TITLE_TEMPLATE, "");
+		leaf3 = new PatternPart(PART_TITLE_CONTEXT, "");
+		leaf4 = new PatternPart(PART_TITLE_FORCES, "");
+		leaf5 = new PatternPart(PART_TITLE_SOLUTION, "");
 		doAddCool();
 	}
 
