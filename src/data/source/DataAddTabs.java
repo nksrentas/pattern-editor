@@ -1,9 +1,11 @@
-package save.file;
+package data.source;
+
+import java.io.IOException;
 
 public class DataAddTabs extends DataDecorator{
 	private DataFile dataFile;
 	private int numberOfLines = 1;
-	
+
 	public DataAddTabs(DataFile dataFile) {
 		this.dataFile = dataFile;
 	}
@@ -25,5 +27,10 @@ public class DataAddTabs extends DataDecorator{
 	
 	public void saveName(String patternName) {
 		dataFile.writeFile(patternName);
+	}
+
+	@Override
+	public void readFile() throws IOException {
+	
 	}
 }

@@ -15,13 +15,13 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import data.source.DataAddTabs;
+import data.source.DataFile;
+import data.source.DataLatextSyntax;
+import data.source.DataTxt;
 import datamodel.Pattern;
 import datamodel.PatternComponent;
 import datamodel.PatternComposite;
-import save.file.DataAddTabs;
-import save.file.DataFile;
-import save.file.DataLatextSyntax;
-import save.file.DataTxt;
 
 public class DeductiveMiniGUI extends Shell {
 	private Monitor primary;
@@ -155,12 +155,12 @@ public class DeductiveMiniGUI extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Save to kathe leaf 
-				PatternMain.getPattern().getDeductiveMiniPattern().getLeaf1().setContents(data[0]);
+				/*PatternMain.getPattern().getDeductiveMiniPattern().getLeaf1().setContents(data[0]);
 				PatternMain.getPattern().getDeductiveMiniPattern().getLeaf2().setContents(data[1]);
 				PatternMain.getPattern().getDeductiveMiniPattern().getLeaf3().setContents(data[2]);
 				PatternMain.getPattern().getDeductiveMiniPattern().getLeaf4().setContents(data[3]);
 				PatternMain.getPattern().getDeductiveMiniPattern().getLeaf5().setContents(data[4]);
-				PatternMain.getPattern().getDeductiveMiniPattern().getLeaf6().setContents(data[5]);
+				PatternMain.getPattern().getDeductiveMiniPattern().getLeaf6().setContents(data[5]);*/
 			}
 		});
 
@@ -324,22 +324,22 @@ public class DeductiveMiniGUI extends Shell {
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
-			data[0] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getDeductiveMiniPattern().getLeaf1().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Template":
-			data[1] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getDeductiveMiniPattern().getLeaf2().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Problem":
-			data[2] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getDeductiveMiniPattern().getLeaf3().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Solution":
-			data[3] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getDeductiveMiniPattern().getLeaf4().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Benefit":
-			data[4] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getDeductiveMiniPattern().getLeaf5().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Consequences":
-			data[5] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getDeductiveMiniPattern().getLeaf6().setContents(textWindowGUI.getTextInput());
 			break;
 		default:
 			System.out.println("Input problem");
@@ -350,17 +350,17 @@ public class DeductiveMiniGUI extends Shell {
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
-			return data[0];
+			return PatternMain.getPattern().getDeductiveMiniPattern().getLeaf1().getContents();
 		case "Template":
-			return data[1];
+			return PatternMain.getPattern().getDeductiveMiniPattern().getLeaf2().getContents();
 		case "Problem":
-			return data[2];
+			return PatternMain.getPattern().getDeductiveMiniPattern().getLeaf3().getContents();
 		case "Solution":
-			return data[3];
+			return PatternMain.getPattern().getDeductiveMiniPattern().getLeaf4().getContents();
 		case "Benefit":
-			return data[4];
+			return PatternMain.getPattern().getDeductiveMiniPattern().getLeaf5().getContents();
 		case "Consequences":
-			return data[5];
+			return PatternMain.getPattern().getDeductiveMiniPattern().getLeaf6().getContents();
 		default:
 			System.out.println("Input problem");
 			break;

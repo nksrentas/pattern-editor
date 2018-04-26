@@ -15,13 +15,13 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import data.source.DataAddTabs;
+import data.source.DataFile;
+import data.source.DataLatextSyntax;
+import data.source.DataTxt;
 import datamodel.Pattern;
 import datamodel.PatternComponent;
 import datamodel.PatternComposite;
-import save.file.DataAddTabs;
-import save.file.DataFile;
-import save.file.DataLatextSyntax;
-import save.file.DataTxt;
 
 public class SystemOfPatternsGUI extends Shell {
 	private Monitor primary;
@@ -198,7 +198,7 @@ public class SystemOfPatternsGUI extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Save to kathe leaf 
-				PatternMain.getPattern().getSystemOfPattern().getLeaf1().setContents(data[0]);
+				/*PatternMain.getPattern().getSystemOfPattern().getLeaf1().setContents(data[0]);
 				PatternMain.getPattern().getSystemOfPattern().getLeaf2().setContents(data[1]);
 				PatternMain.getPattern().getSystemOfPattern().getLeaf3().setContents(data[2]);
 				PatternMain.getPattern().getSystemOfPattern().getLeaf4().setContents(data[3]);
@@ -210,7 +210,7 @@ public class SystemOfPatternsGUI extends Shell {
 				PatternMain.getPattern().getSystemOfPattern().getLeaf10().setContents(data[9]);
 				PatternMain.getPattern().getSystemOfPattern().getLeaf11().setContents(data[10]);
 				PatternMain.getPattern().getSystemOfPattern().getLeaf12().setContents(data[11]);
-				PatternMain.getPattern().getSystemOfPattern().getLeaf13().setContents(data[12]);
+				PatternMain.getPattern().getSystemOfPattern().getLeaf13().setContents(data[12]);*/
 			}
 		});
 		
@@ -376,43 +376,43 @@ public class SystemOfPatternsGUI extends Shell {
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
-			data[0] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf1().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Template":
-			data[1] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf2().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Also Known As":
-			data[2] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf3().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Example":
-			data[3] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf4().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Context":
-			data[4] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf5().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Problem":
-			data[5] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf6().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Solution":
-			data[6] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf7().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Structure":
-			data[7] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf8().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Dynamic":
-			data[8] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf9().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Implementation":
-			data[9] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf10().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Example Resolved":
-			data[10] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf11().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Variants":
-			data[11] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf12().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Known Uses":
-			data[12] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getSystemOfPattern().getLeaf13().setContents(textWindowGUI.getTextInput());
 			break;
 		default:
 			System.out.println("Input problem");
@@ -423,31 +423,31 @@ public class SystemOfPatternsGUI extends Shell {
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
-			return data[0];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf1().getContents();
 		case "Template":
-			return data[1];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf2().getContents();
 		case "Also Known As":
-			return data[2];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf3().getContents();
 		case "Example":
-			return data[3];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf4().getContents();
 		case "Context":
-			return data[4];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf5().getContents();
 		case "Problem":
-			return data[5];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf6().getContents();
 		case "Solution":
-			return data[6];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf7().getContents();
 		case "Structure":
-			return data[7];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf8().getContents();
 		case "Dynamic":
-			return data[8];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf9().getContents();
 		case "Implementation":
-			return data[9];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf10().getContents();
 		case "Example Resolved":
-			return data[10];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf11().getContents();
 		case "Variants":
-			return data[11];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf12().getContents();
 		case "Known Uses":
-			return data[12];
+			return PatternMain.getPattern().getSystemOfPattern().getLeaf13().getContents();
 		default:
 			System.out.println("Input problem");
 			break;

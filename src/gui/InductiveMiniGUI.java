@@ -15,13 +15,13 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import data.source.DataAddTabs;
+import data.source.DataFile;
+import data.source.DataLatextSyntax;
+import data.source.DataTxt;
 import datamodel.Pattern;
 import datamodel.PatternComponent;
 import datamodel.PatternComposite;
-import save.file.DataAddTabs;
-import save.file.DataFile;
-import save.file.DataLatextSyntax;
-import save.file.DataTxt;
 
 public class InductiveMiniGUI extends Shell {
 	private Monitor primary;
@@ -149,11 +149,11 @@ public class InductiveMiniGUI extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Save to kathe leaf
-				PatternMain.getPattern().getInductiveMiniPattern().getLeaf1().setContents(data[0]);
+				/*PatternMain.getPattern().getInductiveMiniPattern().getLeaf1().setContents(data[0]);
 				PatternMain.getPattern().getInductiveMiniPattern().getLeaf2().setContents(data[1]);
 				PatternMain.getPattern().getInductiveMiniPattern().getLeaf3().setContents(data[2]);
 				PatternMain.getPattern().getInductiveMiniPattern().getLeaf4().setContents(data[3]);
-				PatternMain.getPattern().getInductiveMiniPattern().getLeaf5().setContents(data[4]);
+				PatternMain.getPattern().getInductiveMiniPattern().getLeaf5().setContents(data[4]);*/
 			}
 		});
 
@@ -317,19 +317,19 @@ public class InductiveMiniGUI extends Shell {
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
-			data[0] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getInductiveMiniPattern().getLeaf1().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Template":
-			data[1] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getInductiveMiniPattern().getLeaf2().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Context":
-			data[2] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getInductiveMiniPattern().getLeaf3().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Forces":
-			data[3] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getInductiveMiniPattern().getLeaf4().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Solution":
-			data[4] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getInductiveMiniPattern().getLeaf5().setContents(textWindowGUI.getTextInput());
 			break;
 		default:
 			System.out.println("Input problem");
@@ -340,15 +340,15 @@ public class InductiveMiniGUI extends Shell {
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
-			return data[0];
+			return PatternMain.getPattern().getInductiveMiniPattern().getLeaf1().getContents();
 		case "Template":
-			return data[1];
+			return PatternMain.getPattern().getInductiveMiniPattern().getLeaf2().getContents();
 		case "Context":
-			return data[2];
+			return PatternMain.getPattern().getInductiveMiniPattern().getLeaf3().getContents();
 		case "Forces":
-			return data[3];
+			return PatternMain.getPattern().getInductiveMiniPattern().getLeaf4().getContents();
 		case "Solution":
-			return data[4];
+			return PatternMain.getPattern().getInductiveMiniPattern().getLeaf5().getContents();
 		default:
 			System.out.println("Input problem");
 			break;

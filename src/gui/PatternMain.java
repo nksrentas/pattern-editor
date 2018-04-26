@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.IOException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -16,7 +18,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import data.source.DataFile;
+import data.source.DataTxt;
 import datamodel.Pattern;
+import read.latex.LatexReader;
 
 public class PatternMain {
 	private final static String MICRO_PATTERN_TEMPLATE = "Micro-Pattern Template";
@@ -33,9 +38,8 @@ public class PatternMain {
 	private static MessageFactory messageFactory;
 	private Monitor primary;
 	private static Display display;
+	private static Pattern pattern;
 
-	private static Pattern pattern; 
-	
 	public static void main(String[] args) {
 		try {
 			PatternMain window = new PatternMain();
@@ -66,7 +70,7 @@ public class PatternMain {
 		shlPatternsEditor.setSize(392, 374);
 		shlPatternsEditor.setText("Patterns Editor");
 		shlPatternsEditor.setLayout(null);
-		
+
 		pattern = new Pattern();
 		pattern.init();
 
@@ -143,7 +147,7 @@ public class PatternMain {
 					messageFactory = new MessageInfoDialog();
 					messageFactory.renderDialogWindow();
 				}
-				
+
 				switch (selectedRadioButton) {
 				case MICRO_PATTERN_TEMPLATE:
 					new MicroPatternGUI(display, patternLanguageNameTextField.getText());
@@ -168,6 +172,36 @@ public class PatternMain {
 		});
 		createPatternButton.setBounds(10, 276, 109, 31);
 		createPatternButton.setText("Create");
+
+		Button loadPatternButton = new Button(shlPatternsEditor, SWT.FLAT | SWT.CENTER);
+		loadPatternButton.setText("Load");
+		loadPatternButton.setFont(SWTResourceManager.getFont("Yu Gothic UI Semilight", 12, SWT.NORMAL));
+		loadPatternButton.setBounds(125, 276, 109, 31);
+		loadPatternButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				FileDialogSWT fileDialogSWT = new FileDialogSWT(display);
+				String fileName = fileDialogSWT.getFileName();
+
+				if (fileName.contains(".txt")) {
+					// Read file
+					DataFile dataFile = new DataTxt();
+					dataFile.initReadStream(fileName);
+					
+					try {
+						dataFile.readFile();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					try {
+						LatexReader latexReader = new LatexReader(fileName);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 	}
 
 	private boolean checkEmptyTextField() {
@@ -205,6 +239,10 @@ public class PatternMain {
 
 	public static Pattern getPattern() {
 		return pattern;
+	}
+
+	public static Display getDisplay() {
+		return display;
 	}
 
 }

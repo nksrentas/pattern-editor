@@ -15,18 +15,18 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import data.source.DataAddTabs;
+import data.source.DataFile;
+import data.source.DataLatextSyntax;
+import data.source.DataTxt;
 import datamodel.Pattern;
 import datamodel.PatternComponent;
 import datamodel.PatternComposite;
-import save.file.DataAddTabs;
-import save.file.DataFile;
-import save.file.DataLatextSyntax;
-import save.file.DataTxt;
 
 public class MicroPatternGUI extends Shell {
 	private Monitor primary;
 	private Display display;
-	private String[] data = new String[4];
+	private static String[] data = new String[4];
 	private MessageFactory messageFactory;
 	private boolean microPattern = false;
 	private boolean inductivePattern = false;
@@ -141,10 +141,10 @@ public class MicroPatternGUI extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Save to kathe leaf
-				PatternMain.getPattern().getMicroPattern().getLeaf1().setContents(data[0]);
-				PatternMain.getPattern().getMicroPattern().getLeaf2().setContents(data[1]);
-				PatternMain.getPattern().getMicroPattern().getLeaf3().setContents(data[2]);
-				PatternMain.getPattern().getMicroPattern().getLeaf4().setContents(data[3]);
+				//PatternMain.getPattern().getMicroPattern().getLeaf1().setContents(data[0]);
+				//PatternMain.getPattern().getMicroPattern().getLeaf2().setContents(data[1]);
+				//PatternMain.getPattern().getMicroPattern().getLeaf3().setContents(data[2]);
+				//PatternMain.getPattern().getMicroPattern().getLeaf4().setContents(data[3]);				
 			}
 		});
 
@@ -309,16 +309,16 @@ public class MicroPatternGUI extends Shell {
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
-			data[0] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getMicroPattern().getLeaf1().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Template":
-			data[1] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getMicroPattern().getLeaf2().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Problem":
-			data[2] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getMicroPattern().getLeaf3().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Solution":
-			data[3] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getMicroPattern().getLeaf4().setContents(textWindowGUI.getTextInput());
 			break;
 		default:
 			System.out.println("Input problem");
@@ -329,13 +329,13 @@ public class MicroPatternGUI extends Shell {
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
-			return data[0];
+			return PatternMain.getPattern().getMicroPattern().getLeaf1().getContents();
 		case "Template":
-			return data[1];
+			return PatternMain.getPattern().getMicroPattern().getLeaf2().getContents();
 		case "Problem":
-			return data[2];
+			return PatternMain.getPattern().getMicroPattern().getLeaf3().getContents();
 		case "Solution":
-			return data[3];
+			return PatternMain.getPattern().getMicroPattern().getLeaf4().getContents();
 		default:
 			System.out.println("Input problem");
 			break;

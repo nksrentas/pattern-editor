@@ -1,4 +1,4 @@
-package save.file;
+package data.source;
 
 public class DataLatextSyntax extends DataDecorator{
 	private static final String LATEX_TYPE = "\\document{article}";
@@ -49,5 +49,11 @@ public class DataLatextSyntax extends DataDecorator{
 	
 	public void saveName(String patternName) {
 		dataFile.writeFile(patternName);
+	}
+
+	@Override
+	public void readFile() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -15,13 +15,13 @@ import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import data.source.DataAddTabs;
+import data.source.DataFile;
+import data.source.DataLatextSyntax;
+import data.source.DataTxt;
 import datamodel.Pattern;
 import datamodel.PatternComponent;
 import datamodel.PatternComposite;
-import save.file.DataAddTabs;
-import save.file.DataFile;
-import save.file.DataLatextSyntax;
-import save.file.DataTxt;
 
 public class GangFourGUI extends Shell {
 	private Monitor primary;
@@ -217,7 +217,7 @@ public class GangFourGUI extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// Save to kathe leaf 
-				PatternMain.getPattern().getGangOfFourPattern().getLeaf1().setContents(data[0]);
+				/*PatternMain.getPattern().getGangOfFourPattern().getLeaf1().setContents(data[0]);
 				PatternMain.getPattern().getGangOfFourPattern().getLeaf2().setContents(data[1]);
 				PatternMain.getPattern().getGangOfFourPattern().getLeaf3().setContents(data[2]);
 				PatternMain.getPattern().getGangOfFourPattern().getLeaf4().setContents(data[3]);
@@ -231,7 +231,7 @@ public class GangFourGUI extends Shell {
 				PatternMain.getPattern().getGangOfFourPattern().getLeaf12().setContents(data[11]);
 				PatternMain.getPattern().getGangOfFourPattern().getLeaf13().setContents(data[12]);
 				PatternMain.getPattern().getGangOfFourPattern().getLeaf14().setContents(data[13]);
-				PatternMain.getPattern().getGangOfFourPattern().getLeaf15().setContents(data[14]);
+				PatternMain.getPattern().getGangOfFourPattern().getLeaf15().setContents(data[14]);*/
 			}
 		});
 
@@ -395,49 +395,49 @@ public class GangFourGUI extends Shell {
 	private void saveData(String buttonText, TextWindowGUI textWindowGUI) {
 		switch (buttonText) {
 		case "Name":
-			data[0] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf1().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Template":
-			data[1] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf2().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Classification":
-			data[2] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf3().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Intent":
-			data[3] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf4().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Also Known As":
-			data[4] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf5().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Motivation":
-			data[5] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf6().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Applicability":
-			data[6] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf7().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Structure":
-			data[7] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf8().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Participants":
-			data[8] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf9().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Collaborations":
-			data[9] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf10().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Consequences":
-			data[10] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf11().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Implementation":
-			data[11] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf12().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Sample Code":
-			data[12] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf13().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Known Uses":
-			data[13] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf14().setContents(textWindowGUI.getTextInput());
 			break;
 		case "Related Pattern":
-			data[14] = textWindowGUI.getTextInput();
+			PatternMain.getPattern().getGangOfFourPattern().getLeaf15().setContents(textWindowGUI.getTextInput());
 			break;
 		default:
 			System.out.println("Input problem");
@@ -448,35 +448,35 @@ public class GangFourGUI extends Shell {
 	private String parseData(String buttonText) {
 		switch (buttonText) {
 		case "Name":
-			return data[0];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf1().getContents();
 		case "Template":
-			return data[1];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf2().getContents();
 		case "Classification":
-			return data[2];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf3().getContents();
 		case "Intent":
-			return data[3];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf4().getContents();
 		case "Also Known As":
-			return data[4];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf5().getContents();
 		case "Motivation":
-			return data[5];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf6().getContents();
 		case "Applicability":
-			return data[6];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf7().getContents();
 		case "Structure":
-			return data[7];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf8().getContents();
 		case "Participants":
-			return data[8];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf9().getContents();
 		case "Collaborations":
-			return data[9];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf10().getContents();
 		case "Consequences":
-			return data[10];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf11().getContents();
 		case "Implementation":
-			return data[11];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf12().getContents();
 		case "Sample Code":
-			return data[12];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf13().getContents();
 		case "Known Uses":
-			return data[13];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf14().getContents();
 		case "Related Pattern":
-			return data[14];
+			return PatternMain.getPattern().getGangOfFourPattern().getLeaf15().getContents();
 		default:
 			System.out.println("Input problem");
 			break;
