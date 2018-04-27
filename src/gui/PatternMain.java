@@ -31,6 +31,7 @@ public class PatternMain {
 	private final static String SYSTEM_OF_PATTERNS_TEMPLATE = "System of Patterns Template";
 	private final static String TEXT_FONT = "Yu Gothic UI Semilight";
 	private final static String DEFAULT_PATTERN_NAME = "Default name";
+	private Button createPatternButton;
 	private static String selectedRadioButton = "";
 	protected static Shell shlPatternsEditor;
 	private Text patternLanguageNameTextField;
@@ -138,7 +139,7 @@ public class PatternMain {
 		systemPatternRadio.setText(SYSTEM_OF_PATTERNS_TEMPLATE);
 		systemPatternRadio.addSelectionListener(selectionListener);
 
-		Button createPatternButton = new Button(shlPatternsEditor, SWT.FLAT | SWT.CENTER);
+		createPatternButton = new Button(shlPatternsEditor, SWT.FLAT | SWT.CENTER);
 		createPatternButton.setFont(SWTResourceManager.getFont(TEXT_FONT, 12, SWT.NORMAL));
 		createPatternButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -241,8 +242,23 @@ public class PatternMain {
 		return pattern;
 	}
 
+	public static void setPattern(Pattern pattern) {
+		PatternMain.pattern = pattern;
+	}
+
 	public static Display getDisplay() {
 		return display;
 	}
 
+	public Text getPatternLanguageNameTextField() {
+		return patternLanguageNameTextField;
+	}
+
+	public void setPatternLanguageNameTextField(Text patternLanguageNameTextField) {
+		this.patternLanguageNameTextField = patternLanguageNameTextField;
+	}
+
+	public Button getCreatePatternButton() {
+		return createPatternButton;
+	}
 }

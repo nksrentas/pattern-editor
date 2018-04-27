@@ -11,8 +11,6 @@ public class Pattern extends PatternComposite{
 		return null;
 	}
 	
-	//public static void main(String args[]) {
-	
 	public void init() {
 		/*PatternComponent leaf1 = new PatternPart("ena");
 		PatternComponent leaf2 = new PatternPart("dio");
@@ -48,16 +46,6 @@ public class Pattern extends PatternComposite{
 		PatternTestCache patternTestCache = new PatternTestCache();		// arxikopoihsi ton pattern template
 		
 		microPattern = (MicroPattern) patternTestCache.get("Micro");
-		//((PatternComposite) microPattern.getContainer()).print();
-		
-		
-		//MicroPattern objTwo = (MicroPattern) patternTestCache.get("Micro");
-		/*System.out.println(objOne.leaf1.getTitle());
-		System.out.println(objOne.leaf1.getContents());
-		objOne.leaf1.setContents("moronrrrrrrrrrrrrr");
-		System.out.println(objOne.leaf1.getContents());
-		System.out.println(objTwo.leaf1.getContents());*/
-		
 		
 		inductiveMiniPattern = (InductiveMiniPattern) patternTestCache.get("Inductive");
 		//((PatternComposite) inductiveMiniPattern.container).print();
