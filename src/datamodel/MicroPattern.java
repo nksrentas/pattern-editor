@@ -1,11 +1,14 @@
 package datamodel;
 
+import java.util.ArrayList;
+
 public class MicroPattern extends PatternTest {
 	PatternComponent leaf1;
 	PatternComponent leaf2;
 	PatternComponent leaf3;
 	PatternComponent leaf4;
 	private PatternComponent container;
+	private ArrayList<PatternComponent> leafs = new ArrayList<PatternComponent>(4);
 	
 	public MicroPattern() {
 		setContainer(new PatternComposite(PATTERN_NAME_MICRO));
